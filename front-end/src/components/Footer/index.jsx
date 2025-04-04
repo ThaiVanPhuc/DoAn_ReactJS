@@ -4,6 +4,7 @@ import { RiFacebookFill } from "react-icons/ri";
 import { AiOutlineTwitter } from "react-icons/ai";
 import { BsYoutube } from "react-icons/bs";
 import "./footer.css";
+
 const Footer = () => {
   return (
     <>

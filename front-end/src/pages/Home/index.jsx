@@ -9,8 +9,8 @@ import { CiShoppingCart } from "react-icons/ci";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { FaEye } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
-import "./home.css";
-import Chatbox from "../chatbox";
+import "./Home.css";
+import Chatbox from "../../components/Chatbox";
 
 const Home = ({ detail, view, close, setClose, addtocart }) => {
   const sliderRef = useRef();

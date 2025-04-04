@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
 import { AiOutlineHeart, AiOutlineCloseCircle } from "react-icons/ai";
-import Productdetail from "./productdetail";
+import Productdetail from "../../components/productdetail";
 import "./product.css";
 import { AiFillStar } from "react-icons/ai";
 
