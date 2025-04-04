@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { AiOutlineInstagram } from "react-icons/ai";
 import { RiFacebookFill } from "react-icons/ri";
 import { AiOutlineTwitter } from "react-icons/ai";
@@ -13,7 +14,7 @@ const Footer = () => {
           <div className="about">
             <div className="logo">
               <img src="./img/box-Banner/logo.gif" alt="logo"></img>
-              <span className="shop-name" style={{ position: "absolute", bottom: "-2390px" }}>Shop Technology</span>
+              <span className="shop-name">Shop Technology</span>
             </div>
             <div className="detail">
               <div className="icon">
@@ -44,10 +45,10 @@ const Footer = () => {
           <div className="page">
             <h3>Pages</h3>
             <ul>
-              <li>Home</li>
-              <li>About</li>
-              <li>Contact</li>
-              <li>Term and Condition</li>
+              <li><Link to="/" className="nav-link">Home</Link></li>
+              <li><Link to="/product" className="nav-link">Sản phẩm</Link></li>
+              <li><Link to="/about" className="nav-link">Giới thiệu</Link></li>
+              <li><Link to="/contact" className="nav-link">Liên hệ</Link></li>
             </ul>
           </div>
         </div>
