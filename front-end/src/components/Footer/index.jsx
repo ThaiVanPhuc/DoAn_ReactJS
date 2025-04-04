@@ -13,6 +13,7 @@ const Footer = () => {
           <div className="about">
             <div className="logo">
               <img src="./img/box-Banner/logo.gif" alt="logo"></img>
+              <span className="shop-name" style={{ position: "absolute", bottom: "-2390px" }}>Shop Technology</span>
             </div>
             <div className="detail">
               <div className="icon">
