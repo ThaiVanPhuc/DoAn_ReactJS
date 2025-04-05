@@ -11,13 +11,13 @@ const router = express.Router();
 router.get("/users", authenticate, authorizeAdmin, UserController.getAllUsers);
 router.get("/users/:id", authenticate, UserController.getUserById);
 router.put(
-  "users/:id",
+  "/users/:id",
   authenticate,
   authorizeAdmin,
   UserController.updateUser
 );
 router.delete(
-  "users/:id",
+  "/users/:id",
   authenticate,
   authorizeAdmin,
   UserController.deleteUser

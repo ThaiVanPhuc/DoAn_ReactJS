@@ -12,7 +12,7 @@ const authenticate = (req, res, next) => {
   });
 };
 const authorizeAdmin = (req, res, next) => {
-  if (req.user.role !== "admin") return res.sendStatus(403);
+  if (!req.user || req.user.role !== "admin") return res.sendStatus(403);
   next();
 };
 
