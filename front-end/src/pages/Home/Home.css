@@ -54,6 +54,7 @@
 }
 
 .product_type {
+    background-color: #cbd5db;
     padding: 20px 30px;
     width: 100%;
 }
@@ -106,6 +107,7 @@
 }
 
 .about {
+    background-color: #ecf2f7;
     padding: 40px 50px;
     width: 100%;
 }
@@ -154,6 +156,7 @@
 }
 
 .product {
+    background-color: #fff;
     padding: 30px 40px;
     width: 100%;
 }
@@ -251,9 +254,9 @@
 }
 
 .banner {
+    background-color: #fff;
     padding: 20px 30px;
     width: 100%;
-
 }
 
 .banner .container {
