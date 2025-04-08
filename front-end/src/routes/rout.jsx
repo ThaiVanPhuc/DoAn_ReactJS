@@ -1,11 +1,11 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "../pages/Home";
-import Product from "../pages/Product";
-import Cart from "../pages/Cart";
-import Contact from "../pages/Contact";
-import Login from "../pages/Login";
-import Signup from "../pages/SignUp";
+import Home from "../pages/UserPage/Home/Home";
+import Product from "../pages/UserPage/Product/Product";
+import Cart from "../pages/UserPage/Cart/Cart";
+import Contact from "../pages/UserPage/Contact/Contact";
+import Login from "../pages/UserPage/Login/Login";
+import Signup from "../pages/UserPage/SignUp/SignUp";
 
 const Rout = ({
   product,

@@ -4,7 +4,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { BsBagCheck } from "react-icons/bs";
 import { IoPersonOutline } from "react-icons/io5";
 import { FaTruckMoving } from "react-icons/fa";
-import "./nav.css";
+import "./Header.css";
 
 const Nav = ({ searchbtn }) => {
     const [search, setSearch] = useState("");
