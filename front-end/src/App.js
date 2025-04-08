@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import Nav from "./components/Header/Header";
 import Rout from "./routes/rout";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useLocation } from "react-router-dom";
 import Footer from "./components/Footer/footer";
 import Productdetail from "./db/productdetail";
 
-const App = () => {
+const AppContent = () => {
+  const location = useLocation();
+
   // add to cart
   const [cart, setCart] = useState([]);
   //product Details
@@ -37,25 +39,33 @@ const App = () => {
       alert("Sản phẩm đã được thêm vào giỏ hàng");
     }
   };
-  console.log(cart);
+
+  const hideHeaderFooter = location.pathname === "/login" || location.pathname === "/signup";
+
   return (
     <>
-      <BrowserRouter>
-        <Nav searchbtn={searchbtn} />
-        <Rout
-          product={product}
-          setProduct={setProduct}
-          detail={detail}
-          view={view}
-          close={close}
-          setClose={setClose}
-          cart={cart}
-          setCart={setCart}
-          addtocart={addtocart}
-        />
-        <Footer />
-      </BrowserRouter>
+      {!hideHeaderFooter && <Nav searchbtn={searchbtn} />}
+      <Rout
+        product={product}
+        setProduct={setProduct}
+        detail={detail}
+        view={view}
+        close={close}
+        setClose={setClose}
+        cart={cart}
+        setCart={setCart}
+        addtocart={addtocart}
+      />
+      {!hideHeaderFooter && <Footer />}
     </>
+  );
+};
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 };
 
