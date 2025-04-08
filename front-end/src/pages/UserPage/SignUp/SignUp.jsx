@@ -48,7 +48,7 @@ const SignUp = () => {
 
   return (
     <div className="signup-container">
-      <h2>Đăng Ký</h2>
+      <h2>Regester</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Tên người dùng:</label>
         <input
@@ -101,14 +101,14 @@ const SignUp = () => {
         />
 
         <button type="submit" className='dangky'>
-          Đăng Ký
+          Sign Up
         </button>
       </form>
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       <p>
-        Đã có tài khoản? <Link to="/login">Đăng nhập</Link>
+      Already have an account? <Link to="/login">Login</Link>
       </p>
     </div>
   );
