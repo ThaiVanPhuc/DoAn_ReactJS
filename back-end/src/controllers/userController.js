@@ -40,7 +40,6 @@ class UserController {
       }
 
       const isMatch = await bcrypt.compare(trimmedPassword, user.password);
-
       if (!isMatch) {
         return res.status(400).json({ message: "Invalid password" });
       }
@@ -49,7 +48,15 @@ class UserController {
         expiresIn: "1h",
       });
 
-      res.json({ token });
+      res.json({
+        token,
+        user: {
+          id: user._id,
+          username: user.username,
+          email: user.email,
+          role: user.role,
+        },
+      });
     } catch (error) {
       console.error("Login Error:", error);
       res.status(500).json({ message: "Server error while logging in" });

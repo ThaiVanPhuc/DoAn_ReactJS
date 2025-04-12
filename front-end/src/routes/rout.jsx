@@ -8,6 +8,8 @@ import Login from "../pages/UserPage/Login/Login";
 import Signup from "../pages/UserPage/SignUp/SignUp";
 import AdminUserPage from '../pages/AdminPage/UserManagement/Users';
 import AdminLayout from "../layouts/Admin/AdminLayout";
+import PrivateRoute from "./PrivateRoute";
+import Loginadmin from "../pages/AdminPage/UserManagement/Login"
 
 const Rout = ({
   product,
@@ -53,12 +55,15 @@ const Rout = ({
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/admin/login" element={<Loginadmin />} />
         <Route
           path="/admin/users"
           element={
-            <AdminLayout>
-              <AdminUserPage />
-            </AdminLayout>
+            <PrivateRoute>
+              <AdminLayout>
+                <AdminUserPage />
+              </AdminLayout>
+            </PrivateRoute>
           }
         />
       </Routes>
