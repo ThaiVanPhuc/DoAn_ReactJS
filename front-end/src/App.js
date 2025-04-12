@@ -40,7 +40,10 @@ const AppContent = () => {
     }
   };
 
-  const hideHeaderFooter = location.pathname === "/login" || location.pathname === "/signup";
+  const hideHeaderFooter =
+    location.pathname === "/login" ||
+    location.pathname === "/signup" ||
+    location.pathname.startsWith("/admin");
 
   return (
     <>
