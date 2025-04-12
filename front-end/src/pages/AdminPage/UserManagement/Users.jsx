@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Nav from "./components/Header/Header";
-import Rout from "./routes/rout";
+import Nav from '../../../components/Header/Header';
+import Rout from '../../../routes/rout';
 import { BrowserRouter, useLocation } from "react-router-dom";
-import Footer from "./components/Footer/footer";
-import Productdetail from "./db/productdetail";
+import Footer from '../../../components/Footer/footer';
+import Productdetail from '../../../db/productdetail';
 
 // ⚠️ AppContent phải được gọi bên trong BrowserRouter
 const AppContent = () => {

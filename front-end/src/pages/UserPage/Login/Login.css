@@ -4,7 +4,7 @@
     height: 500px;
     margin: 50px auto;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: rgb(247, 183, 154);
@@ -12,7 +12,7 @@
   
   .login-image {
     flex: 1;
-    background-image: url('https://img.lovepik.com/bg/20240116/Gorgeous-Image-Glass-Globe-and-Computer-Make-Stunning-Desktop-Wallpaper_2769571_wh860.jpg!/fw/860');
+    background-image: url('https://png.pngtree.com/thumb_back/fw800/background/20231225/pngtree-dark-abstract-technological-texture-image_13897245.png');
     background-size: cover;
     background-position: center;
   }
@@ -38,13 +38,13 @@
   
   label {
     margin-top: 10px;
-    color: #555;
+    color: #413e3e;
   }
   
   input {
     margin-bottom: 15px;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #b3b0b0;
     border-radius: 4px;
   }
   
