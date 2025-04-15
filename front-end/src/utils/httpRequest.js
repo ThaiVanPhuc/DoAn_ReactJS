@@ -6,14 +6,15 @@ const httpRequest = axios.create({
 
 // GET
 export const get = async (path, headers = {}) => {
-  const response = await httpRequest.get(path, { headers });
+  const response = await httpRequest.get(path, headers);
+  console.log(response);
   return response.data;
 };
 
 // POST
-export const post = async (path, payload, { headers } = {}) => {
+export const post = async (path, payload, headers = {}) => {
   try {
-    const response = await httpRequest.post(path, payload, { headers });
+    const response = await httpRequest.post(path, payload, headers);
     return response.data;
   } catch (error) {
     return new Error(`Error: ${error}`);
@@ -21,9 +22,9 @@ export const post = async (path, payload, { headers } = {}) => {
 };
 
 // PUT
-export const put = async (path, payload, { headers } = {}) => {
+export const put = async (path, payload, headers = {}) => {
   try {
-    const response = await httpRequest.put(path, payload, { headers });
+    const response = await httpRequest.put(path, payload, headers);
     return response.data;
   } catch (error) {
     return new Error(`Error: ${error}`);
@@ -31,9 +32,9 @@ export const put = async (path, payload, { headers } = {}) => {
 };
 
 // DELETE
-export const del = async (path, { headers } = {}) => {
+export const del = async (path, headers = {}) => {
   try {
-    const response = await httpRequest.delete(path, { headers });
+    const response = await httpRequest.delete(path, headers);
     return response.data;
   } catch (error) {
     return new Error(`Error: ${error}`);

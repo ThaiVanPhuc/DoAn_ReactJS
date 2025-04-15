@@ -1,7 +1,4 @@
-import axios from "axios";
-import * as HttpRequest from "../utils/httpRequest";
-
-const API_URL = "http://localhost:5000/api/users";
+import * as httpRequest from "../utils/httpRequest";
 
 const authHeader = () => ({
   headers: {
@@ -10,21 +7,27 @@ const authHeader = () => ({
 });
 
 export const getAllUsers = async () => {
-  const res = await axios.get(API_URL, authHeader());
-  return res.data;
+  try {
+    const respone = await httpRequest.get("api/users", authHeader());
+    console.log(respone);
+    return respone;
+  } catch (error) {
+    console.error("Error getallUsers", error);
+    return [];
+  }
 };
 
 export const deleteUser = async (id) => {
-  const res = await axios.delete(`${API_URL}/${id}`, authHeader());
+  const res = await httpRequest.del(`api/users/${id}`, authHeader());
   return res.data;
 };
 
 export const createUser = async (userData) => {
-  const res = await axios.post("http://localhost:5000/api/signup", userData);
+  const res = await httpRequest.post("api/signup", userData);
   return res.data;
 };
 
 export const updateUser = async (id, userData) => {
-  const res = await axios.put(`${API_URL}/${id}`, userData, authHeader());
+  const res = await httpRequest.put(`api/users/${id}`, userData, authHeader());
   return res.data;
 };
