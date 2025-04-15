@@ -19,7 +19,7 @@ const SignIn = () => {
     return emailRegex.test(formData.email);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!isValidEmail()) {
@@ -27,8 +27,40 @@ const SignIn = () => {
       return;
     }
 
-    alert('Đăng nhập thành công!');
-    navigate('/');
+    try {
+      const response = await fetch('http://localhost:5000/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        const { token, user } = data;
+
+        // Lưu token và thông tin người dùng vào localStorage
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
+
+        alert('Đăng nhập thành công!');
+
+        // Điều hướng dựa trên vai trò
+        if (user.role === 'admin') {
+          navigate('/admin');
+        } else {
+          
+          navigate('/');
+        }
+      } else {
+        alert(`Đăng nhập thất bại: ${data.message || 'Sai thông tin đăng nhập'}`);
+      }
+    } catch (error) {
+      console.error('Lỗi khi gọi API đăng nhập:', error);
+      alert('Đã có lỗi xảy ra. Vui lòng thử lại sau.');
+    }
   };
 
   return (
@@ -64,7 +96,8 @@ const SignIn = () => {
         </form>
 
         <p>
-          Don't have an account? <Link to="/signup">Sign up</Link>
+          <span className="text-gray">Don't have an account? </span>
+          <Link to="/signup" className="text-blue">Sign up</Link>
         </p>
       </div>
     </div>

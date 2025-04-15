@@ -114,6 +114,7 @@ class UserController {
       res.status(500).json({ message: "Server error while deleting user" });
     }
   }
+  
 }
 
 module.exports = new UserController();
