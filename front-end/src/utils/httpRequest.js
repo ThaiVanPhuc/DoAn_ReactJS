@@ -41,4 +41,13 @@ export const del = async (path, headers = {}) => {
   }
 };
 
+export const patch = async (path, payload, headers = {}) => {
+  try {
+    const response = await httpRequest.patch(path, payload, headers);
+    return response.data;
+  } catch (error) {
+    return new Error(`Error: ${error}`);
+  }
+};
+
 export default httpRequest;

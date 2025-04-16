@@ -37,6 +37,7 @@ const AdminUserPage = () => {
             id: user._id,
             username: user.username,
             email: user.email,
+            password: "",
             role: user.role,
         });
         setShowModal(true);
@@ -53,10 +54,19 @@ const AdminUserPage = () => {
 
         try {
             if (formData.id) {
-                await userServices.updateUser(formData.id, formData);
+                const updateData = {
+                    username: formData.username,
+                    email: formData.email,
+                    role: formData.role,
+                };
+                if (formData.password && formData.password.trim() !== "") {
+                    updateData.password = formData.password;
+                }
+                await userServices.updateUser(formData.id, updateData);
             } else {
                 await userServices.createUser(formData);
             }
+
             setFormData({
                 id: "",
                 username: "",
@@ -137,18 +147,41 @@ const AdminUserPage = () => {
                         {error && <p className={styles.error}>{error}</p>}
 
                         <form onSubmit={handleSubmit} className={styles.form}>
-                            <input type="text" name="username" placeholder="Username" value={formData.username} onChange={handleChange} required />
-                            <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
-                            {!formData.id && (
-                                <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
-                            )}
+                            <input
+                                type="text"
+                                name="username"
+                                placeholder="Username"
+                                value={formData.username}
+                                onChange={handleChange}
+                                required
+                            />
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                            />
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder={formData.id ? "Mật khẩu mới (nếu cần thay)" : "Mật khẩu"}
+                                value={formData.password}
+                                onChange={handleChange}
+                                required={!formData.id}
+                            />
                             <select name="role" value={formData.role} onChange={handleChange}>
                                 <option value="user">User</option>
                                 <option value="admin">Admin</option>
                             </select>
                             <div className={styles.modalButtons}>
-                                <button type="submit" className={styles.saveBtn}>{formData.id ? "Update" : "Add"}</button>
-                                <button type="button" className={styles.cancelBtn} onClick={closeModal}>Cancel</button>
+                                <button type="submit" className={styles.saveBtn}>
+                                    {formData.id ? "Cập nhật" : "Thêm"}
+                                </button>
+                                <button type="button" className={styles.cancelBtn} onClick={closeModal}>
+                                    Hủy
+                                </button>
                             </div>
                         </form>
                     </div>

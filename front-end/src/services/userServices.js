@@ -27,7 +27,11 @@ export const createUser = async (userData) => {
   return res.data;
 };
 
-export const updateUser = async (id, userData) => {
-  const res = await httpRequest.put(`api/users/${id}`, userData, authHeader());
+export const updateUser = async (id, data) => {
+  const res = await httpRequest.patch(
+    `/api/users/edit/${id}`,
+    data,
+    authHeader()
+  );
   return res.data;
 };

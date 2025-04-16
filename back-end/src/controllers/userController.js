@@ -88,7 +88,6 @@ class UserController {
 
   async updateUser(req, res) {
     try {
-      // Nếu cập nhật mật khẩu, hãy nhớ rằng schema sẽ hash mật khẩu mới nếu thay đổi
       const updatedUser = await User.findByIdAndUpdate(
         req.params.id,
         req.body,
@@ -103,6 +102,31 @@ class UserController {
     }
   }
 
+  async edituser(req, res) {
+    try {
+      const { id } = req.params;
+      const { username, email, role, password } = req.body;
+      const updateFields = {};
+
+      if (username) updateFields.username = username;
+      if (email) updateFields.email = email;
+      if (role) updateFields.role = role;
+
+      if (password) {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        updateFields.password = hashedPassword;
+      }
+
+      const updatedUser = await User.findByIdAndUpdate(id, updateFields, {
+        new: true,
+      });
+
+      res.json({ message: "Cập nhật thành công", user: updatedUser });
+    } catch (err) {
+      res.status(500).json({ message: "Lỗi khi cập nhật người dùng" });
+    }
+  }
+
   async deleteUser(req, res) {
     try {
       const deletedUser = await User.findByIdAndDelete(req.params.id);
@@ -114,7 +138,6 @@ class UserController {
       res.status(500).json({ message: "Server error while deleting user" });
     }
   }
-  
 }
 
 module.exports = new UserController();
