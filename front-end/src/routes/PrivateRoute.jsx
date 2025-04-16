@@ -5,7 +5,7 @@ const PrivateRoute = ({ children }) => {
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user"));
 
-    return token && user?.role === "admin" ? children : <Navigate to="/admin/login" />;
+    return token && user?.role === "admin" ? children : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;
