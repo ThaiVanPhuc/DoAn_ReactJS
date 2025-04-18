@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Products.module.scss";
+import { getImageUrl } from "../../../utils/image";
 import * as productServices from "../../../services/productServices";
 
 const AdminProductPage = () => {
@@ -152,11 +153,7 @@ const AdminProductPage = () => {
                                 <td>
                                     {product.Img && (
                                         <img
-                                            src={
-                                                product.Img.startsWith("http")
-                                                    ? product.Img
-                                                    : `http://localhost:5000${product.Img}`
-                                            }
+                                            src={getImageUrl(product.Img)}
                                             alt={product.Title}
                                             style={{ width: "60px", height: "60px", objectFit: "cover" }}
                                         />
