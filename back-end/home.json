@@ -1,0 +1,32 @@
+[
+  
+    {
+      "id": 5,
+      "Name": "Tai nghe Sony WH-1000XM4",
+      "Price": 9500,
+      "Image": "/product/headphones/hinh4.png",
+      "Description": "Tai nghe Sony WH-1000XM4 với công nghệ chống ồn tuyệt vời, âm thanh chất lượng cao, pin lâu dài."
+    },
+    {
+      "id": 6,
+      "Name": "Đồng hồ Apple Watch Series 7",
+      "Price": 12900,
+      "Image": "/product/watch/watch.png",
+      "Description": "Apple Watch Series 7 với màn hình Retina, theo dõi sức khỏe và thể thao, kết nối dễ dàng với iPhone."
+    },
+    {
+      "id":7,
+      "Name": "Loa Bluetooth JBL Charge 4",
+      "Price": 3500,
+      "Image": "/product/phu_kien/image.png",
+      "Description": "Loa Bluetooth JBL Charge 4 âm thanh mạnh mẽ, chống nước, pin lâu, dễ dàng mang đi."
+    },
+    {
+      "id": 8,
+      "Name": "USB Kingston DataTraveler 100 G3 64GB",
+      "Price": 400,
+      "Image": "/product/phu_kien/pendrive.png",
+      "Description": "USB Kingston 64GB tốc độ cao, thiết kế nhỏ gọn, tương thích với hầu hết các thiết bị."
+    }
+  ]
+  

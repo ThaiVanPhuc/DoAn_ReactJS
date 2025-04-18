@@ -4,6 +4,7 @@ import Rout from "./routes/rout";
 import { BrowserRouter, useLocation } from "react-router-dom";
 import Footer from "./components/Footer/footer";
 import Productdetail from "./db/productdetail";
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 const AppContent = () => {
   const location = useLocation();

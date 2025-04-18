@@ -1,36 +1,47 @@
-import React, { useState } from "react";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import React, { useState, useEffect } from "react";
+import { AiOutlineShoppingCart, AiOutlineHeart, AiOutlineCloseCircle, AiFillStar,} from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
-import { AiOutlineHeart, AiOutlineCloseCircle } from "react-icons/ai";
-import Productdetail from "../../../db/productdetail";
 import "./product.css";
-import { AiFillStar } from "react-icons/ai";
+import axios from "axios";
 
-const Product = ({
-  product,
-  setProduct,
-  detail,
-  view,
-  close,
-  setClose,
-  addtocart,
-}) => {
+const Product = ({ detail, view, addtocart }) => {
+  const [product, setProduct] = useState([]);
+  const [originalProduct, setOriginalProduct] = useState([]); 
   const [comments, setComments] = useState([]);
-  const filtterproduct = (product) => {
-    const update = Productdetail.filter((x) => {
-      return x.Cat === product;
-    });
-    setProduct(update);
+  const [close, setClose] = useState(false);
+
+  // Lọc sản phẩm theo category
+  const filterProduct = (category) => {
+    const filtered = originalProduct.filter((x) => x.Cat === category);
+    setProduct(filtered);
   };
 
-  const AllProducts = () => {
-    setProduct(Productdetail);
+  // Hiển thị lại tất cả sản phẩm
+  const allProducts = () => {
+    setProduct(originalProduct);
   };
 
+  // Thêm bình luận
   const addComment = (newComment) => {
     setComments([...comments, newComment]);
   };
 
+  // Lấy dữ liệu sản phẩm từ API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/products");
+        console.log("Dữ liệu trả về từ API:", response.data);
+        setProduct(response.data);
+        setOriginalProduct(response.data); // Lưu bản gốc để lọc
+      } catch (error) {
+        console.error("Lỗi khi tải sản phẩm:", error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
   return (
     <>
       {close ? (
@@ -125,14 +136,14 @@ const Product = ({
             <div className="categories">
               <h3>categories</h3>
               <ul>
-                <li onClick={() => AllProducts()}>All Products</li>
-                <li onClick={() => filtterproduct("Tablet")}>Tablet</li>
-                <li onClick={() => filtterproduct("Smart Watch")}>
+                <li onClick={() => allProducts ()}>All Products</li>
+                <li onClick={() => filterProduct("Tablet")}>Tablet</li>
+                <li onClick={() => filterProduct("Smart Watch")}>
                   Smart Watch
                 </li>
-                <li onClick={() => filtterproduct("Heaphone")}>Headphone</li>
-                <li onClick={() => filtterproduct("Camera")}>Camera</li>
-                <li onClick={() => filtterproduct("Gaming")}>Gaming</li>
+                <li onClick={() => filterProduct("Heaphone")}>Headphone</li>
+                <li onClick={() => filterProduct("Camera")}>Camera</li>
+                <li onClick={() => filterProduct("Gaming")}>Gaming</li>
               </ul>
             </div>
           </div>
@@ -142,7 +153,7 @@ const Product = ({
                 return (
                   <div className="box" key={curElm.id}>
                     <div className="img_box">
-                      <img src={curElm.Img} alt={curElm.Title}></img>
+                      <img  src={`http://localhost:5000${curElm.Img}`} alt={curElm.Title}></img>
                       <div className="icon">
                         <li onClick={() => addtocart(curElm)}>
                           <AiOutlineShoppingCart />

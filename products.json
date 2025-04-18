@@ -1,0 +1,31 @@
+[
+    {
+      "id": 1,
+      "Name": "Laptop Dell Inspiron 15",
+      "Price": 18990000,
+      "Image": "/product/tablet/dell-inspiron-15.jpg",
+      "Description": "Laptop Dell Inspiron 15 sở hữu chip Intel Core i5, RAM 8GB, SSD 512GB, màn hình Full HD 15.6 inch, phù hợp cho học tập và làm việc."
+    },
+    {
+      "id": 2,
+      "Name": "Smart TV Samsung 4K 55 inch",
+      "Price": 12990000,
+      "Image": "/product/tablet/samsung-4k-55.jpg",
+      "Description": "Tivi Samsung 4K với màn hình 55 inch, độ phân giải UHD, hỗ trợ điều khiển bằng giọng nói, kết nối internet và kho ứng dụng giải trí phong phú."
+    },
+    {
+      "id": 3,
+      "Name": "Laptop Apple MacBook Air M2",
+      "Price": 28990000,
+      "Image": "/product/tablet/macbook-air-m2.jpg",
+      "Description": "MacBook Air sử dụng chip Apple M2 mạnh mẽ, thiết kế siêu mỏng, màn hình Retina sắc nét, thời lượng pin lên đến 18 tiếng."
+    },
+    {
+      "id": 4,
+      "Name": "Android Tivi Sony 50 inch 4K",
+      "Price": 11490000,
+      "Image": "src/assets/product/tablet/sony-android-tv-50.jpg",
+      "Description": "Tivi Sony Android 4K 50 inch hỗ trợ tìm kiếm bằng giọng nói tiếng Việt, hình ảnh sắc nét, âm thanh sống động, kết nối đa dạng."
+    }
+  ]
+  

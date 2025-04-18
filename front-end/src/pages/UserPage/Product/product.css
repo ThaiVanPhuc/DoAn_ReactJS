@@ -27,16 +27,7 @@
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-/* .products_detail .container button {
-    margin-left: 100%;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    background: none;
-    font-size: 22px;
-    cursor: pointer;
 
-} */
 
 .products_detail .container .closebtn {
     margin-left: 95%;
@@ -71,7 +62,7 @@
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 200;
-    color: #9a9a9a;
+    color: #f78989;
     letter-spacing: 1px;
 }
 
@@ -123,10 +114,10 @@
     font-weight: 300;
     color: #010f1c;
 }
-
+/* Phan loai */
 .products p {
     margin-top: 20px;
-    color: #9a9a9a;
+    color: #ec9191;
 }
 
 .products .container {
