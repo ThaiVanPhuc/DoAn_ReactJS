@@ -29,7 +29,23 @@ const AdminUserPage = () => {
             fetchData()
         } catch (error) {
             console.error(error);
-
         }
     }
+
+    const handleEdit = (user) => {
+        setFormData({
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            password: "",
+            role: user.role
+        })
+        setShowModal(true)
+    }
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setFormData((prev) => ({ ...prev, [name]: value }))
+    }
+
 }

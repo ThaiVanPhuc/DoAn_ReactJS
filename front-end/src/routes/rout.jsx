@@ -7,6 +7,7 @@ import Contact from "../pages/UserPage/Contact/Contact";
 import Login from "../pages/Authentication/Login/Login";
 import Signup from "../pages/Authentication/SignUp/SignUp";
 import AdminUserPage from '../pages/AdminPage/UserManagement/Users';
+import AdminProductPage from '../pages/AdminPage/ProductManagement/Product';
 import AdminLayout from "../layouts/Admin/AdminLayout";
 import PrivateRoute from "./PrivateRoute";
 
@@ -60,6 +61,26 @@ const Rout = ({
             <PrivateRoute>
               <AdminLayout>
                 <AdminUserPage />
+              </AdminLayout>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin/products"
+          element={
+            <PrivateRoute>
+              <AdminLayout>
+                <AdminProductPage />
+              </AdminLayout>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <PrivateRoute>
+              <AdminLayout>
+                {/* <AdminProductPage /> */}
               </AdminLayout>
             </PrivateRoute>
           }
