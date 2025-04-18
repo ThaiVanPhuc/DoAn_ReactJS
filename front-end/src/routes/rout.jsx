@@ -85,6 +85,16 @@ const Rout = ({
             </PrivateRoute>
           }
         />
+        <Route
+          path="/admin/chat"
+          element={
+            <PrivateRoute>
+              <AdminLayout>
+                {/* <AdminProductPage /> */}
+              </AdminLayout>
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </>
   );
