@@ -6,8 +6,6 @@ const route = require("./routes");
 const homeRouter = require("./routes/homeRoutes");
 const productRouter = require("./routes/productRoutes")
 
-const path = require("path");
-
 
 // Connect to MongoDB
 connectDB();
