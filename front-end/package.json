@@ -19,6 +19,7 @@
     "sass": "^1.86.3",
     "shop_technology": "file:",
     "slick-carousel": "^1.8.1",
+    "socket.io-client": "^4.8.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
