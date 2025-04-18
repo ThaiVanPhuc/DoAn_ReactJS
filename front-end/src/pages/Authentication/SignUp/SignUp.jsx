@@ -29,7 +29,7 @@ const SignUp = () => {
     return phoneRegex.test(formData.phoneNumber);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!isValidEmail()) {
@@ -42,13 +42,37 @@ const SignUp = () => {
       return;
     }
 
-    alert(`Chào mừng ${formData.username} đã đến với ReactPG. Chúc bạn mua hàng vui vẻ!`);
-    navigate('/');
+    if (formData.password !== formData.confirmPassword) {
+      setErrorMessage('Mật khẩu và xác nhận mật khẩu không khớp.');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:5000/api/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(`Chào mừng ${formData.username} đã đến với ReactPG. Chúc bạn mua hàng vui vẻ!`);
+        navigate('/login');
+      } else {
+        setErrorMessage(data.message || 'Đăng ký thất bại!');
+      }
+    } catch (error) {
+      console.error('Lỗi khi gọi API đăng ký:', error);
+      setErrorMessage('Đã có lỗi xảy ra. Vui lòng thử lại sau.');
+    }
   };
 
   return (
     <div className="signup-container">
-      <h2>Đăng Ký</h2>
+      <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Tên người dùng:</label>
         <input
@@ -100,15 +124,16 @@ const SignUp = () => {
           required
         />
 
-        <button type="submit" className='dangky'>
-          Đăng Ký
+        <button type="submit" className="dangky">
+          Sign Up
         </button>
       </form>
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       <p>
-        Đã có tài khoản? <Link to="/login">Đăng nhập</Link>
+        <span className="gray-text">Already have an account? </span>
+        <Link to="/login" className="blue-link">Login</Link>
       </p>
     </div>
   );

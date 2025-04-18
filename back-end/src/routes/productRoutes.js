@@ -1,5 +1,6 @@
 const express = require("express");
 const ProductController = require("../controllers/productController.js");
+const upload = require("../middlewares/upload");
 const {
   authenticate,
   authorizeAdmin,
@@ -7,9 +8,16 @@ const {
 
 const router = express.Router();
 
-router.get("/", ProductController.getAllProduct);
+router.get("/all", ProductController.getAllProduct);
 router.get("/:id", ProductController.getProductById);
-router.post("/", authenticate, authorizeAdmin, ProductController.addProduct);
+router.post(
+  "/",
+  authenticate,
+  authorizeAdmin,
+  upload.single("Img"),
+  ProductController.addProduct
+);
+
 router.put(
   "/:id",
   authenticate,

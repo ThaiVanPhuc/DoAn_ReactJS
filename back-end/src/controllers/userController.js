@@ -40,7 +40,6 @@ class UserController {
       }
 
       const isMatch = await bcrypt.compare(trimmedPassword, user.password);
-
       if (!isMatch) {
         return res.status(400).json({ message: "Invalid password" });
       }
@@ -49,7 +48,15 @@ class UserController {
         expiresIn: "1h",
       });
 
-      res.json({ token });
+      res.json({
+        token,
+        user: {
+          id: user._id,
+          username: user.username,
+          email: user.email,
+          role: user.role,
+        },
+      });
     } catch (error) {
       console.error("Login Error:", error);
       res.status(500).json({ message: "Server error while logging in" });
@@ -81,7 +88,6 @@ class UserController {
 
   async updateUser(req, res) {
     try {
-      // Nếu cập nhật mật khẩu, hãy nhớ rằng schema sẽ hash mật khẩu mới nếu thay đổi
       const updatedUser = await User.findByIdAndUpdate(
         req.params.id,
         req.body,
@@ -93,6 +99,31 @@ class UserController {
     } catch (error) {
       console.error("Update User Error:", error);
       res.status(500).json({ message: "Server error while updating user" });
+    }
+  }
+
+  async edituser(req, res) {
+    try {
+      const { id } = req.params;
+      const { username, email, role, password } = req.body;
+      const updateFields = {};
+
+      if (username) updateFields.username = username;
+      if (email) updateFields.email = email;
+      if (role) updateFields.role = role;
+
+      if (password) {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        updateFields.password = hashedPassword;
+      }
+
+      const updatedUser = await User.findByIdAndUpdate(id, updateFields, {
+        new: true,
+      });
+
+      res.json({ message: "Cập nhật thành công", user: updatedUser });
+    } catch (err) {
+      res.status(500).json({ message: "Lỗi khi cập nhật người dùng" });
     }
   }
 

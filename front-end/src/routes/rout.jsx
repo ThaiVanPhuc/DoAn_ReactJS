@@ -4,8 +4,12 @@ import Home from "../pages/UserPage/Home/Home";
 import Product from "../pages/UserPage/Product/Product";
 import Cart from "../pages/UserPage/Cart/Cart";
 import Contact from "../pages/UserPage/Contact/Contact";
-import Login from "../pages/UserPage/Login/Login";
-import Signup from "../pages/UserPage/SignUp/SignUp";
+import Login from "../pages/Authentication/Login/Login";
+import Signup from "../pages/Authentication/SignUp/SignUp";
+import AdminUserPage from '../pages/AdminPage/UserManagement/Users';
+import AdminProductPage from '../pages/AdminPage/ProductManagement/Product';
+import AdminLayout from "../layouts/Admin/AdminLayout";
+import PrivateRoute from "./PrivateRoute";
 
 const Rout = ({
   product,
@@ -51,6 +55,36 @@ const Rout = ({
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/admin/users"
+          element={
+            <PrivateRoute>
+              <AdminLayout>
+                <AdminUserPage />
+              </AdminLayout>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin/products"
+          element={
+            <PrivateRoute>
+              <AdminLayout>
+                <AdminProductPage />
+              </AdminLayout>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <PrivateRoute>
+              <AdminLayout>
+                {/* <AdminProductPage /> */}
+              </AdminLayout>
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </>
   );

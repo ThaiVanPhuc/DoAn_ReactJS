@@ -27,8 +27,12 @@ class ProductController {
 
   async addProduct(req, res) {
     try {
-      const product = new Product(req.body);
+      const { Title, Cat, Price, Description } = req.body;
+      const Img = req.file ? `/uploads/products/${req.file.filename}` : "";
+
+      const product = new Product({ Title, Cat, Price, Description, Img });
       await product.save();
+
       res.status(201).json(product);
     } catch (error) {
       console.error("Add Product Error:", error);

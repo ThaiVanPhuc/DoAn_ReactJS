@@ -10,12 +10,20 @@ const router = express.Router();
 
 router.get("/users", authenticate, authorizeAdmin, UserController.getAllUsers);
 router.get("/users/:id", authenticate, UserController.getUserById);
+router.patch(
+  "/users/edit/:id/",
+  authenticate,
+  authorizeAdmin,
+  UserController.edituser
+);
+
 router.put(
   "/users/:id",
   authenticate,
   authorizeAdmin,
   UserController.updateUser
 );
+
 router.delete(
   "/users/:id",
   authenticate,
