@@ -10,6 +10,8 @@ import AdminUserPage from '../pages/AdminPage/UserManagement/Users';
 import AdminProductPage from '../pages/AdminPage/ProductManagement/Product';
 import AdminLayout from "../layouts/Admin/AdminLayout";
 import PrivateRoute from "./PrivateRoute";
+import ChatRoute from "../pages/AdminPage/ChatPage";
+
 
 const Rout = ({
   product,
@@ -77,6 +79,16 @@ const Rout = ({
         />
         <Route
           path="/admin"
+          element={
+            <PrivateRoute>
+              <AdminLayout>
+                {/* <AdminProductPage /> */}
+              </AdminLayout>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin/chat"
           element={
             <PrivateRoute>
               <AdminLayout>
