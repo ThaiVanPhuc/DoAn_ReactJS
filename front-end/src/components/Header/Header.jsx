@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Nav, Navbar, Button, Form, FormControl } from "react-bootstrap";
 import { FaHeart, FaShoppingBag, FaUser, FaSearch } from "react-icons/fa"; 
-import { Link, useNavigate } from "react-router-dom";  // Import useNavigate
-
+import { Link, useNavigate } from "react-router-dom";  
 import logo from "../../assets/box-Banner/logo.gif";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();  // Hook để điều hướng
+  const navigate = useNavigate();  
 
   // Hàm xử lý thay đổi giá trị tìm kiếm
   const handleSearchChange = (e) => {
@@ -20,20 +19,19 @@ const Header = () => {
     e.preventDefault();
     console.log("Tìm kiếm với từ khóa:", searchQuery);
     if (searchQuery.trim()) {
-      // Điều hướng đến trang sản phẩm với từ khóa tìm kiếm
-      navigate(`/product?search=${searchQuery}`);
+      // Điều hướng đến trang tìm kiếm mới, truyền từ khóa tìm kiếm qua URL
+      navigate(`/search?keyword=${searchQuery}`);
     }
   };
 
   return (
     <Navbar expand="lg" style={{ backgroundColor: "#fbdada" }}>
       <Container>
-
-        {/* Logo + Tên ShopShop */}
+        {/* Logo + Tên Shop */}
         <Navbar.Brand as={Link} to="/">
           <img
             src={logo}
-            alt=""
+            alt="logo"
             width="40px" height="40px"
             className="me-2"
           />
@@ -57,6 +55,8 @@ const Header = () => {
               <Link to="/contact" className="nav-link">Liên hệ</Link>
             </Nav.Item>
           </Nav>    
+
+          {/* Form tìm kiếm */}
           <Form className="d-flex align-items-center" onSubmit={handleSearchSubmit} style={{ width: "200px" }}>
             <FormControl
               type="text"
@@ -64,12 +64,13 @@ const Header = () => {
               className="me-2"
               value={searchQuery}
               onChange={handleSearchChange}
-              style={{ width: "100%", padding: "10px", borderRadius: "20px" }} />
-             <Button variant="outline-primary" type="submit" style={{ border: "none", backgroundColor: "transparent", padding: "0" }}>
+              style={{ width: "100%", padding: "10px", borderRadius: "20px" }}
+            />
+            <Button variant="outline-primary" type="submit" style={{ border: "none", backgroundColor: "transparent", padding: "0" }}>
               <FaSearch size={20} color="#007bff" />
             </Button>
           </Form>
-
+          
           {/* ICON */}
           <div className="d-flex align-items-center gap-3">
             <Link to="/favorites">

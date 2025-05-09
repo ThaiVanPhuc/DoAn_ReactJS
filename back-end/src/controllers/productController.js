@@ -67,6 +67,34 @@ class ProductController {
       res.status(500).json({ message: "Failed to delete product" });
     }
   }
+
+// controllers/ProductController.js
+
+    async searchProduct(req, res) {
+  try {
+    const keyword = req.query.search;
+
+    if (!keyword || keyword.trim() === "") {
+      return res.status(400).json({ message: "Missing search keyword" });
+    }
+
+    const products = await Product.find({
+      $or: [
+        { Title: { $regex: keyword, $options: "i" } },
+        { Description: { $regex: keyword, $options: "i" } }
+      ]
+    });
+
+    res.json(products);
+  } catch (error) {
+    console.error("Search Product Error:", error);
+    res.status(500).json({ message: "Failed to search product" });
+  }
 }
+
+}
+
+
+
 
 module.exports = new ProductController();

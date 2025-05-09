@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/UserPage/Home/Home";
 import Product from "../pages/UserPage/Product/Product";
@@ -10,6 +9,7 @@ import AdminUserPage from '../pages/AdminPage/UserManagement/Users';
 import AdminProductPage from '../pages/AdminPage/ProductManagement/Product';
 import AdminLayout from "../layouts/Admin/AdminLayout";
 import PrivateRoute from "./PrivateRoute";
+import SearchPage from "../pages/UserPage/Product/searchProduct";
 
 const Rout = ({
   product,
@@ -59,6 +59,9 @@ const Rout = ({
         element={
           <ProductDetail 
             addtocart={addtocart} />} />
+        <Route path="/search" element={<SearchPage addtocart={addtocart}
+ />} />  
+
 
         <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
         <Route path="/contact" element={<Contact />} />
