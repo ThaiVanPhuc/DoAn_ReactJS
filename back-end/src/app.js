@@ -18,9 +18,9 @@ app.use(express.json());
 
 // Static folder for product images
 app.use(express.static('public'));
-
+app.use(express.json()); 
 // Serve static files (images)
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes
 route(app);

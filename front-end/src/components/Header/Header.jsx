@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Nav, Navbar, Button, Form, FormControl } from "react-bootstrap";
 import { FaHeart, FaShoppingBag, FaUser, FaSearch } from "react-icons/fa"; 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";  // Import useNavigate
+
 import logo from "../../assets/box-Banner/logo.gif";
 
 const Header = () => {
-  
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();  // Hook để điều hướng
 
   // Hàm xử lý thay đổi giá trị tìm kiếm
   const handleSearchChange = (e) => {
@@ -18,8 +19,11 @@ const Header = () => {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     console.log("Tìm kiếm với từ khóa:", searchQuery);
+    if (searchQuery.trim()) {
+      // Điều hướng đến trang sản phẩm với từ khóa tìm kiếm
+      navigate(`/product?search=${searchQuery}`);
+    }
   };
-
 
   return (
     <Navbar expand="lg" style={{ backgroundColor: "#fbdada" }}>
@@ -65,7 +69,6 @@ const Header = () => {
               <FaSearch size={20} color="#007bff" />
             </Button>
           </Form>
-
 
           {/* ICON */}
           <div className="d-flex align-items-center gap-3">

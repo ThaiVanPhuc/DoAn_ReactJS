@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineShoppingCart, AiOutlineHeart, AiOutlineCloseCircle, AiFillStar,} from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+
 import "./product.css";
 import axios from "axios";
 
-const Product = ({ detail, view, addtocart }) => {
+const Product = ({ detail, addtocart }) => {
   const [product, setProduct] = useState([]);
   const [originalProduct, setOriginalProduct] = useState([]); 
   const [comments, setComments] = useState([]);
@@ -25,12 +27,20 @@ const Product = ({ detail, view, addtocart }) => {
   const addComment = (newComment) => {
     setComments([...comments, newComment]);
   };
+  // Xu ly duong dan den trang chi tiet san pham
+  const navigate = useNavigate();
+
+  const view = (product) => {
+    navigate(`/product/${product._id}`);
+  };
+  
+
 
   // Lấy dữ liệu sản phẩm từ API
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/products");
+        const response = await axios.get("http://localhost:5000/api/products/all");
         console.log("Dữ liệu trả về từ API:", response.data);
         setProduct(response.data);
         setOriginalProduct(response.data); // Lưu bản gốc để lọc
@@ -45,25 +55,22 @@ const Product = ({ detail, view, addtocart }) => {
   return (
     <>
       {close ? (
-        <div className="products_detail">
+        <div className="products_detail mb-4">
           <div className="container">
             <button onClick={() => setClose(false)} className="closebtn">
               <AiOutlineCloseCircle />
             </button>
             {detail.map((curElm) => {
               return (
-                <div className="productbox" key={curElm.id}>
+                <div className="productbox mb-3" key={curElm.id}>
                   <div className="img_box">
                     <img src={curElm.Img} alt={curElm.Title}></img>
                   </div>
                   <div className="detail">
                     <h4>{curElm.Cat}</h4>
                     <h2>{curElm.Title}</h2>
-                    <p>
-                      A Screen Everyone Will One: Whether your family is
-                      streaming or video chatting with friends table A8...
-                    </p>
-                    <h3>{curElm.Price}</h3>
+                   
+                    <h3>{curElm.Price.toLocaleString("vi-VN",)} VND</h3>
                     <button onClick={() => addtocart(curElm)}>
                       Add To Cart
                     </button>
@@ -95,6 +102,7 @@ const Product = ({ detail, view, addtocart }) => {
                   </div>
                 ))}
               </div>
+              {/* Form binh luanluan */}
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -128,6 +136,8 @@ const Product = ({ detail, view, addtocart }) => {
           </div>
         </div>
       ) : null}
+      {/* EndEnd */}
+      {/* Phân loại  */}
 
       <div className="products">
         <h2>Products</h2>
@@ -141,7 +151,9 @@ const Product = ({ detail, view, addtocart }) => {
                 <li onClick={() => filterProduct("Smart Watch")}>
                   Smart Watch
                 </li>
-                <li onClick={() => filterProduct("Heaphone")}>Headphone</li>
+                <li onClick={() => filterProduct("Laptop")}>Laptop</li>
+
+                <li onClick={() => filterProduct("Headphone")}>Headphone</li>
                 <li onClick={() => filterProduct("Camera")}>Camera</li>
                 <li onClick={() => filterProduct("Gaming")}>Gaming</li>
               </ul>
@@ -170,7 +182,7 @@ const Product = ({ detail, view, addtocart }) => {
                     <div className="detail">
                       <p>{curElm.Cat}</p>
                       <h3>{curElm.Title}</h3>
-                      <h4>${curElm.Price}</h4>
+                      <h4>{curElm.Price.toLocaleString("vi-VN",)} VND</h4>
                     </div>
                   </div>
                 );

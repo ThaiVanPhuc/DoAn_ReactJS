@@ -19,6 +19,7 @@ const AdminProductPage = () => {
     const fetchProducts = async () => {
         try {
             const data = await productServices.getAllProducts();
+            
             setProducts(data);
         } catch (error) {
             console.error("Error fetching products:", error);

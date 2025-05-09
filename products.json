@@ -1,31 +1,190 @@
 [
+  {
+    "id": 1,
+    "Title": "Laptop Dell Inspiron 15",
+    "Cat": "Laptop",
+    "Price": "15000000",
+    "Img": "/products/lap/laptop1.jpg",
+    "Description": "Laptop Dell Inspiron 15 mang đến hiệu suất ổn định với vi xử lý Intel Core i5 thế hệ 11, RAM 8GB và ổ SSD 256GB giúp khởi động nhanh và đa nhiệm mượt mà. Thiết kế đơn giản, bền bỉ, phù hợp cho sinh viên và dân văn phòng.",
+    "Luotban": "300"
+  },
+  {
+    "id": 2,
+    "Title": "MacBook Air M2 2023",
+    "Cat": "Laptop",
+    "Price": "25000000",
+    "Img": "/products/lap/macbook.jpg",
+    "Description": "MacBook Air M2 2023 là sự kết hợp hoàn hảo giữa hiệu suất và thiết kế siêu mỏng. Trang bị chip Apple M2 mạnh mẽ, màn hình Liquid Retina 13.6 inch, thời lượng pin lên đến 18 giờ và hệ điều hành macOS tối ưu cho công việc sáng tạo, lập trình và giải trí.",
+    "Luotban": "500"
+  },
+  {
+    "id": 3,
+    "Title": "HP Pavilion 14",
+    "Cat": "Laptop",
+    "Price": "17000000",
+    "Img": "/products/lap/laptop2.jpg",
+    "Description": "HP Pavilion 14 sở hữu thiết kế thanh lịch, màn hình 14 inch viền mỏng cùng hiệu năng ổn định từ Intel Core i5, RAM 8GB, SSD 512GB. Phù hợp với nhu cầu học tập, làm việc văn phòng và giải trí nhẹ nhàng.",
+    "Luotban": "250"
+  },
+  {
+    "id": 4,
+    "Title": "Lenovo ThinkPad E14 Gen 4",
+    "Cat": "Laptop",
+    "Price": "19000000",
+    "Img": "/products/lap/Laptop-to.png",
+    "Description": "Lenovo ThinkPad E14 Gen 4 là dòng laptop doanh nhân với độ bền cao, bàn phím gõ êm ái, trang bị AMD Ryzen 5, RAM 16GB và SSD 512GB. Khả năng bảo mật và hiệu suất ổn định giúp bạn xử lý công việc liên tục không gián đoạn.",
+    "Luotban": "320"
+  },
+
     {
-      "id": 1,
-      "Name": "Laptop Dell Inspiron 15",
-      "Price": 18990000,
-      "Image": "/product/tablet/dell-inspiron-15.jpg",
-      "Description": "Laptop Dell Inspiron 15 sở hữu chip Intel Core i5, RAM 8GB, SSD 512GB, màn hình Full HD 15.6 inch, phù hợp cho học tập và làm việc."
+      "id": 5,
+      "Title": "Tai nghe Sony WH-1000XM5",
+      "Cat": "Headphone",
+      "Price": "8990000",
+      "Img": "/products/heaphones/hinh1.png",
+      "Description": "Tai nghe chống ồn chủ động Sony WH-1000XM5 mang lại trải nghiệm âm thanh đỉnh cao với công nghệ khử tiếng ồn hàng đầu, âm bass sâu và thời lượng pin lên đến 30 giờ. Thiết kế gọn nhẹ, sang trọng và hỗ trợ sạc nhanh.",
+      "Luotban": "620"
     },
     {
-      "id": 2,
-      "Name": "Smart TV Samsung 4K 55 inch",
-      "Price": 12990000,
-      "Image": "/product/tablet/samsung-4k-55.jpg",
-      "Description": "Tivi Samsung 4K với màn hình 55 inch, độ phân giải UHD, hỗ trợ điều khiển bằng giọng nói, kết nối internet và kho ứng dụng giải trí phong phú."
+      "id": 6,
+      "Title": "Tai nghe Apple AirPods Pro 2",
+      "Cat": "Headphone",
+      "Price": "6590000",
+      "Img": "/products/heaphones/hinh2.png",
+      "Description": "AirPods Pro 2 với chip H2 cho âm thanh vượt trội, khử tiếng ồn chủ động thông minh và thời lượng pin kéo dài. Thiết kế vừa vặn với tai, hỗ trợ sạc không dây MagSafe và khả năng kết nối mượt mà với các thiết bị Apple.",
+      "Luotban": "890"
     },
     {
-      "id": 3,
-      "Name": "Laptop Apple MacBook Air M2",
-      "Price": 28990000,
-      "Image": "/product/tablet/macbook-air-m2.jpg",
-      "Description": "MacBook Air sử dụng chip Apple M2 mạnh mẽ, thiết kế siêu mỏng, màn hình Retina sắc nét, thời lượng pin lên đến 18 tiếng."
+      "id": 7,
+      "Title": "Tai nghe JBL Tune 510BT",
+      "Cat": "Headphone",
+      "Price": "1290000",
+      "Img": "/products/heaphones/hinh3.png",
+      "Description": "Tai nghe không dây JBL Tune 510BT mang đến âm thanh JBL Pure Bass mạnh mẽ, kết nối Bluetooth 5.0 ổn định và thời lượng pin lên đến 40 giờ. Thiết kế gọn nhẹ, gập gọn tiện lợi cho người dùng năng động.",
+      "Luotban": "740"
     },
     {
-      "id": 4,
-      "Name": "Android Tivi Sony 50 inch 4K",
-      "Price": 11490000,
-      "Image": "src/assets/product/tablet/sony-android-tv-50.jpg",
-      "Description": "Tivi Sony Android 4K 50 inch hỗ trợ tìm kiếm bằng giọng nói tiếng Việt, hình ảnh sắc nét, âm thanh sống động, kết nối đa dạng."
+      "id": 8,
+      "Title": "Tai nghe gaming Razer BlackShark V2",
+      "Cat": "Headphone",
+      "Price": "2490000",
+      "Img": "/products/heaphones/hinh4.png",
+      "Description": "Razer BlackShark V2 là tai nghe chơi game chuyên nghiệp với màng loa TriForce Titanium 50mm, micro chống ồn có thể tháo rời và công nghệ âm thanh THX Spatial Audio giúp tái hiện không gian 3D chân thực cho game thủ.",
+      "Luotban": "510"
     }
-  ]
+  ,
+
+
+  {
+    "id": 9,
+    "Title": "Apple Watch Series 9 GPS 41mm",
+    "Cat": "Smart Watch",
+    "Price": "10990000",
+    "Img": "/products/watch/w1.png",
+    "Description": "Apple Watch Series 9 sở hữu chip S9 mới, màn hình sáng hơn, điều khiển bằng cử chỉ tay (Double Tap) và tích hợp cảm biến đo nhịp tim, oxy trong máu, theo dõi giấc ngủ. Tương thích tốt với iPhone và hỗ trợ các bài tập thể thao chuyên sâu.",
+    "Luotban": "830"
+  },
+  {
+    "id": 10,
+    "Title": "Samsung Galaxy Watch 6 44mm",
+    "Cat": "Smart Watch",
+    "Price": "8490000",
+    "Img": "/products/watch/w2.png",
+    "Description": "Galaxy Watch 6 trang bị màn hình Super AMOLED sống động, viền mỏng, chip Exynos W930 mạnh mẽ. Hỗ trợ đo nhịp tim, ECG, theo dõi giấc ngủ nâng cao, kết nối dễ dàng với điện thoại Samsung và Android.",
+    "Luotban": "670"
+  },
+  {
+    "id": 11,
+    "Title": "Xiaomi Watch S1 Active",
+    "Cat": "Smart Watch",
+    "Price": "3590000",
+    "Img": "/products/watch/w3.jpg",
+    "Description": "Xiaomi Watch S1 Active có thiết kế thể thao, màn hình AMOLED 1.43 inch sắc nét, theo dõi hơn 117 chế độ luyện tập, cảm biến SpO2, nhịp tim liên tục, hỗ trợ gọi Bluetooth và chống nước 5ATM.",
+    "Luotban": "520"
+  },
+  {
+    "id": 12,
+    "Title": "Amazfit GTR 4",
+    "Cat": "Smart Watch",
+    "Price": "3990000",
+    "Img": "/products/watch/w4.jpg",
+    "Description": "Amazfit GTR 4 là smartwatch đa năng với GPS hai tần số chính xác, hỗ trợ hơn 150 môn thể thao, đo nhịp tim, oxy máu, stress, pin dùng đến 14 ngày. Thiết kế cao cấp, tương thích Android và iOS.",
+    "Luotban": "460"
+  },
+
+  {
+    "id": 13,
+    "Title": "iPad Gen 9 10.2 inch WiFi 64GB",
+    "Cat": "Tablet",
+    "Price": "7490000",
+    "Img": "/products/tablet/ipad.png",
+    "Description": "iPad Gen 9 trang bị chip A13 Bionic mạnh mẽ, màn hình Retina 10.2 inch sắc nét, hỗ trợ Apple Pencil 1 và bàn phím Smart Keyboard. Phù hợp cho học sinh, sinh viên và người dùng phổ thông giải trí, học tập và làm việc.",
+    "Luotban": "880"
+  },
+  {
+    "id": 14,
+    "Title": "Samsung Galaxy Tab S9 FE 10.9 inch",
+    "Cat": "Tablet",
+    "Price": "11990000",
+    "Img": "/products/tablet/ipad1.jpg",
+    "Description": "Galaxy Tab S9 FE có màn hình LCD 10.9 inch tươi sáng, hỗ trợ bút S Pen đi kèm, chuẩn kháng nước IP68, vi xử lý Exynos 1380 và pin lớn 8000mAh, lý tưởng cho làm việc di động, học online và vẽ thiết kế.",
+    "Luotban": "670"
+  },
+  {
+    "id": 15,
+    "Title": "Xiaomi Pad 6 11 inch 8GB/128GB",
+    "Cat": "Tablet",
+    "Price": "7690000",
+    "Img": "/products/tablet/ipad2.jpg",
+    "Description": "Xiaomi Pad 6 trang bị màn hình 11 inch 2.8K 144Hz, chip Snapdragon 870 mạnh mẽ, RAM 8GB, pin 8840mAh hỗ trợ sạc nhanh. Phù hợp cho giải trí đa phương tiện, học tập và làm việc văn phòng nhẹ nhàng.",
+    "Luotban": "510"
+  },
+  {
+    "id": 16,
+    "Title": "Lenovo Tab M10 Gen 3 10.1 inch",
+    "Cat": "Tablet",
+    "Price": "4990000",
+    "Img": "/products/tablet/tablet.png",
+    "Description": "Lenovo Tab M10 Gen 3 có màn hình 10.1 inch HD, chạy Android 11, phù hợp với nhu cầu học online, xem video và sử dụng các ứng dụng cơ bản. Thiết kế gọn nhẹ và pin đủ dùng trong ngày.",
+    "Luotban": "420"
+  },
+
+  {
+    "id": 17,
+    "Title": "Canon EOS 1500D Kit EF-S 18-55mm",
+    "Cat": "Camera",
+    "Price": "10990000",
+    "Img": "/products/camera/cam1.jpg",
+    "Description": "Canon EOS 1500D là dòng máy ảnh DSLR phù hợp cho người mới bắt đầu, cảm biến CMOS 24.1MP, quay video Full HD, kết nối Wi-Fi tiện lợi. Ống kính EF-S 18-55mm kèm theo cho khả năng chụp linh hoạt từ chân dung đến phong cảnh.",
+    "Luotban": "320"
+  },
+  {
+    "id": 18,
+    "Title": "Sony ZV-E10 Kit 16-50mm",
+    "Cat": "Camera",
+    "Price": "18990000",
+    "Img": "/products/camera/cam2.jpg",
+    "Description": "Sony ZV-E10 là máy ảnh mirrorless chuyên dành cho vlogger với cảm biến APS-C 24.2MP, màn hình xoay lật, quay 4K sắc nét, lấy nét tự động theo mắt và micro định hướng chất lượng cao.",
+    "Luotban": "540"
+  },
+  {
+    "id": 19,
+    "Title": "GoPro HERO12 Black",
+    "Cat": "Camera",
+    "Price": "10990000",
+    "Img": "/products/camera/cam3.jpg",
+    "Description": "GoPro HERO12 Black là camera hành trình siêu bền, chống nước đến 10m, quay video 5.3K, chống rung HyperSmooth 6.0, màn hình trước và sau tiện lợi. Phù hợp với du lịch, thể thao mạo hiểm và vlog.",
+    "Luotban": "750"
+  },
+  {
+    "id": 20,
+    "Title": "Fujifilm X-T30 II Kit 15-45mm",
+    "Cat": "Camera",
+    "Price": "21900000",
+    "Img": "/products/camera/Camera.png",
+    "Description": "Fujifilm X-T30 II là máy ảnh mirrorless nhỏ gọn, cảm biến X-Trans CMOS 4 26.1MP, quay 4K, khả năng tái tạo màu sắc nổi bật và thiết kế cổ điển. Rất lý tưởng cho cả nhiếp ảnh gia chuyên nghiệp lẫn người yêu thích sáng tạo.",
+    "Luotban": "410"
+  }
+
   
+]

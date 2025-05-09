@@ -1,9 +1,8 @@
 const express = require("express");
-const homeRouter = express.Router();
-const homeController = require("../controllers/homeController");
+const HomeController = require("../controllers/homeController.js");
 
-homeRouter.get("/all", homeController.getAllProducts);
-// // router.post("/", homeController.createProduct);
-// // Lấy sản phẩm theo ID
-// homeRouter.get("/:id", homeController.getProductById);
+const homeRouter = express.Router();
+
+homeRouter.get("/all", HomeController.getAllHomeProduct); // dùng đúng biến homeRouter
+
 module.exports = homeRouter;

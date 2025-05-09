@@ -6,7 +6,7 @@ import banner from "../../../assets/box-Banner/background2.avif";
 import './Home.css';
 import Chatbox from "../../../components/Chatbox/chatbox";
 
-const Home = ({addtoCart}) => {
+const Home = ({addtocart}) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -42,17 +42,6 @@ const Home = ({addtoCart}) => {
     }
   }, []);
  
-  // Thêm sản phẩm vào giỏ hàng 
-  // const addToCart = (product) => {
-  //   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  //   const exist = cart.find((item) => item.id === product._id);
-  //   if (exist) {
-  //     exist.qty += 1;
-  //   } else {
-  //     cart.push({ ...product, qty: 1 });
-  //   }
-  //   localStorage.setItem('cart', JSON.stringify(cart));
-  // };
 
   if (loading) {
     return <div className="text-center mt-5">Đang tải dữ liệu...</div>;
@@ -96,16 +85,15 @@ const Home = ({addtoCart}) => {
                 className="card-img-top"  style={{ height: "250px",  width: "100%", objectFit: "cover",  backgroundColor: "#f8f8f8", }}  />
               </div>
               <div className="card-body d-flex flex-column text-center">
-                <h5 className="card-title text-success fw-bold">{product.Name}</h5>
+                <h5 className="card-title fw-bold" style={{color:'#094',}}>{product.Name}</h5>
                 <p className="card-text text-muted small flex-grow-1">{product.Description}</p>
                 <div className="d-flex justify-content-between align-items-center mt-auto">
-                  <div className="fw-semibold text-dark fs-5 mb-0">
+                  <div className="fw-semi text-dark fs-7 mb-0">
                   {product.Price.toLocaleString("vi-VN",)} VND
-
                   </div>
                   <button 
                       className="btn btn-outline-success ms-2 text-dark" 
-                      style={{ background: 'rgb(212, 243, 245)' }} >
+                      style={{ background: 'rgb(212, 243, 245)' }}onClick={() => addtocart(product)} >
                        
                       🛒 Add to cart
                     </button>
