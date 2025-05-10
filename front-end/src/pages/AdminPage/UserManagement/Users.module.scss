@@ -128,3 +128,44 @@
 .cancelBtn {
   background-color: #ccc;
 }
+
+.modalContent h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.modalContent p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.modalContent p {
+  color: rgb(51, 50, 50);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  button {
+    padding: 6px 12px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+  }
+}

@@ -3,6 +3,7 @@ import Home from "../pages/UserPage/Home/Home";
 import Product from "../pages/UserPage/Product/Product";
 import Cart from "../pages/UserPage/Cart/Cart";
 import Contact from "../pages/UserPage/Contact/Contact";
+import New from "../pages/UserPage/News/new";
 import Login from "../pages/Authentication/Login/Login";
 import Signup from "../pages/Authentication/SignUp/SignUp";
 import AdminUserPage from '../pages/AdminPage/UserManagement/Users';
@@ -67,6 +68,7 @@ const Rout = ({
 
         <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/new" element={<New />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route

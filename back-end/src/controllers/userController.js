@@ -6,6 +6,11 @@ class UserController {
   async signin(req, res) {
     try {
       const { username, email, password, isAdmin } = req.body;
+      if (!username || !email || !password) {
+        return res.status(400).json({
+          message: "Missing required fields: username, email, and password",
+        });
+      }
       const existingUser = await User.findOne({ email });
       if (existingUser) {
         return res.status(400).json({ message: "Email already exists" });
@@ -41,7 +46,9 @@ class UserController {
 
       const isMatch = await bcrypt.compare(trimmedPassword, user.password);
       if (!isMatch) {
-        return res.status(400).json({ message: "Invalid password" });
+        return res
+          .status(400)
+          .json({ message: "Invalid password or password" });
       }
 
       const token = jwt.sign({ id: user._id, role: user.role }, "secretKey", {
@@ -63,13 +70,33 @@ class UserController {
     }
   }
 
-  async getAllUsers(req, res) {
+  async getUsers(req, res) {
+    const pageParam = req.query.page;
+    const limit = parseInt(req.query.limit) || 10;
+
     try {
-      const users = await User.find();
-      res.json(users);
-    } catch (error) {
-      console.error("Get Users Error:", error);
-      res.status(500).json({ message: "Server error while getting users" });
+      if (pageParam === "all") {
+        const users = await User.find();
+        return res.json({
+          currentPage: "all",
+          totalUsers: users.length,
+          users: users,
+        });
+      }
+      const page = parseInt(pageParam) || 1;
+      const skip = (page - 1) * limit;
+
+      const total = await User.countDocuments();
+      const users = await User.find().skip(skip).limit(limit);
+
+      res.json({
+        currentPage: page,
+        totalPages: Math.ceil(total / limit),
+        totalUsers: total,
+        users: users,
+      });
+    } catch (err) {
+      res.status(500).json({ error: "Server error" });
     }
   }
 

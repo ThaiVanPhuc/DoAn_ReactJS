@@ -27,7 +27,6 @@ const Header = () => {
   return (
     <Navbar expand="lg" style={{ backgroundColor: "#fbdada" }}>
       <Container>
-        {/* Logo + Tên Shop */}
         <Navbar.Brand as={Link} to="/">
           <img
             src={logo}
