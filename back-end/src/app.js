@@ -19,10 +19,6 @@ app.use(express.static('public'));
 app.use(express.json()); 
 // Serve static files (images)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 
 // Routes
 route(app);
