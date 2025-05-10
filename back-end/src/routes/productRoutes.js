@@ -23,7 +23,8 @@ router.put(
   authenticate,
   authorizeAdmin,
   ProductController.updateProduct
-);  
+);
+
 router.delete(
   "/:id",
   authenticate,

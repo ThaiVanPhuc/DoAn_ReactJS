@@ -28,7 +28,6 @@ const Header = () => {
   return (
     <Navbar expand="lg" style={{ backgroundColor: "#fbdada" }}>
       <Container>
-
         {/* Logo + Tên ShopShop */}
         <Navbar.Brand as={Link} to="/">
           <img
@@ -93,6 +92,19 @@ const Header = () => {
       </Container>
     </Navbar>
   );
+            {/* Navigation */}
+            <nav nav className="nav" >
+                <div className="container">
+                    <ul className="nav-menu">
+                        <Link to="/" className="nav-link">Home</Link>
+                        <Link to="/product" className="nav-link">Sản phẩm</Link>
+                        <Link to="/new" className="nav-link">Giới thiệu</Link>
+                        <Link to="/contact" className="nav-link">Liên hệ</Link>
+                    </ul>
+                </div>
+            </nav >
+        </>
+    );
 };
 
 export default Header;

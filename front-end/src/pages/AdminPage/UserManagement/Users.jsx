@@ -13,23 +13,45 @@ const AdminUserPage = () => {
     });
     const [error, setError] = useState("");
     const [showModal, setShowModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [userToDelete, setUserToDelete] = useState(null);
+
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
     const fetchUsers = async () => {
         try {
-            const data = await userServices.getAllUsers();
-            setUsers(data);
+            const res = await userServices.getAllUsers(page);
+            setUsers(res.users);
+            setTotalPages(res.totalPages);
         } catch (error) {
             console.error("Error fetching users:", error);
         }
     };
 
-    const handleDelete = async (id) => {
+    useEffect(() => {
+        fetchUsers();
+    }, [page]);
+
+    const confirmDelete = (user) => {
+        setUserToDelete(user);
+        setShowDeleteModal(true);
+    };
+
+    const handleDelete = async () => {
         try {
-            await userServices.deleteUser(id);
+            await userServices.deleteUser(userToDelete._id);
+            setShowDeleteModal(false);
+            setUserToDelete(null);
             fetchUsers();
         } catch (error) {
             console.error("Error deleting user:", error);
         }
+    };
+
+    const cancelDelete = () => {
+        setUserToDelete(null);
+        setShowDeleteModal(false);
     };
 
     const handleEdit = (user) => {
@@ -105,10 +127,6 @@ const AdminUserPage = () => {
         setError("");
     };
 
-    useEffect(() => {
-        fetchUsers();
-    }, []);
-
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>User Management</h1>
@@ -127,25 +145,30 @@ const AdminUserPage = () => {
                 <tbody>
                     {users.map((user, index) => (
                         <tr key={user._id}>
-                            <td>{index + 1}</td>
+                            <td>{(page - 1) * 10 + index + 1}</td>
                             <td>{user.username}</td>
                             <td>{user.email}</td>
                             <td>{user.role}</td>
                             <td>
                                 <button className={styles.editBtn} onClick={() => handleEdit(user)}>Edit</button>
-                                <button className={styles.deleteBtn} onClick={() => handleDelete(user._id)}>Delete</button>
+                                <button className={styles.deleteBtn} onClick={() => confirmDelete(user)}>Delete</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
 
+            <div className={styles.pagination}>
+                <button disabled={page === 1} onClick={() => setPage(page - 1)}>&laquo; Prev</button>
+                <span>Trang {page} / {totalPages}</span>
+                <button disabled={page === totalPages} onClick={() => setPage(page + 1)}>Next &raquo;</button>
+            </div>
+
             {showModal && (
                 <div className={styles.modalOverlay}>
                     <div className={styles.modalContent}>
                         <h2>{formData.id ? "Cập nhật người dùng" : "Thêm người dùng"}</h2>
                         {error && <p className={styles.error}>{error}</p>}
-
                         <form onSubmit={handleSubmit} className={styles.form}>
                             <input
                                 type="text"
@@ -184,6 +207,19 @@ const AdminUserPage = () => {
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {showDeleteModal && (
+                <div className={styles.modalOverlay}>
+                    <div className={styles.modalContent}>
+                        <h3>Bạn có chắc chắn muốn xóa người dùng này không?</h3>
+                        <p><strong>{userToDelete?.username}</strong> - {userToDelete?.email}</p>
+                        <div className={styles.modalButtons}>
+                            <button className={styles.deleteBtn} onClick={handleDelete}>Xóa</button>
+                            <button className={styles.cancelBtn} onClick={cancelDelete}>Hủy</button>
+                        </div>
                     </div>
                 </div>
             )}

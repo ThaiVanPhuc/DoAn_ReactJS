@@ -6,10 +6,13 @@ const authHeader = () => ({
   },
 });
 
-export const getAllUsers = async () => {
+export const getAllUsers = async (page = 1, limit = 5) => {
   try {
-    const respone = await httpRequest.get("api/users", authHeader());
-    console.log(respone);
+    const respone = await httpRequest.get(
+      `api/users?page=${page}&limit=${limit}`,
+      authHeader()
+    );
+    console.log("đây là", respone);
     return respone;
   } catch (error) {
     console.error("Error getallUsers", error);
