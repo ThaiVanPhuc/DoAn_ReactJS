@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Nav, Navbar, Button, Form, FormControl } from "react-bootstrap";
-import { FaHeart, FaShoppingBag, FaUser, FaSearch } from "react-icons/fa"; 
+import { FaHeart, FaShoppingBag, FaUser, FaSearch } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";  // Import useNavigate
 
 import logo from "../../assets/box-Banner/logo.gif";
@@ -55,7 +55,7 @@ const Header = () => {
             <Nav.Item>
               <Link to="/contact" className="nav-link">Liên hệ</Link>
             </Nav.Item>
-          </Nav>    
+          </Nav>
           <Form className="d-flex align-items-center" onSubmit={handleSearchSubmit} style={{ width: "200px" }}>
             <FormControl
               type="text"
@@ -64,7 +64,7 @@ const Header = () => {
               value={searchQuery}
               onChange={handleSearchChange}
               style={{ width: "100%", padding: "10px", borderRadius: "20px" }} />
-             <Button variant="outline-primary" type="submit" style={{ border: "none", backgroundColor: "transparent", padding: "0" }}>
+            <Button variant="outline-primary" type="submit" style={{ border: "none", backgroundColor: "transparent", padding: "0" }}>
               <FaSearch size={20} color="#007bff" />
             </Button>
           </Form>
@@ -92,19 +92,6 @@ const Header = () => {
       </Container>
     </Navbar>
   );
-            {/* Navigation */}
-            <nav nav className="nav" >
-                <div className="container">
-                    <ul className="nav-menu">
-                        <Link to="/" className="nav-link">Home</Link>
-                        <Link to="/product" className="nav-link">Sản phẩm</Link>
-                        <Link to="/new" className="nav-link">Giới thiệu</Link>
-                        <Link to="/contact" className="nav-link">Liên hệ</Link>
-                    </ul>
-                </div>
-            </nav >
-        </>
-    );
 };
 
 export default Header;

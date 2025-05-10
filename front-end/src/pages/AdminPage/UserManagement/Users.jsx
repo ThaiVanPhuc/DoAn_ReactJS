@@ -145,7 +145,7 @@ const AdminUserPage = () => {
                 <tbody>
                     {users.map((user, index) => (
                         <tr key={user._id}>
-                            <td>{(page - 1) * 10 + index + 1}</td>
+                            <td>{(page - 1) * 5 + index + 1}</td>
                             <td>{user.username}</td>
                             <td>{user.email}</td>
                             <td>{user.role}</td>

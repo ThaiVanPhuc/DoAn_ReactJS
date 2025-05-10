@@ -4,8 +4,30 @@ class NewController {
   // [GET]  /api/news
   async getNews(req, res) {
     try {
-      const news = await New.find();
-      res.status(200).json(news);
+      const pageParams = req.query.page;
+      const limit = parseInt(req.query.limit) || 10;
+      if (pageParams === "all") {
+        const news = await New.find();
+        return res.json({
+          currentPage: "all",
+          totalNews: news.length,
+          news: news,
+        });
+      }
+      const page = parseInt(pageParams) || 1;
+      const skip = (page - 1) * limit;
+      const total = await New.countDocuments();
+      const news = await New.find()
+        .populate("user", "username email")
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit);
+      res.json({
+        currentPage: page,
+        totalPages: Math.ceil(total / limit),
+        totalNews: total,
+        news: news,
+      });
     } catch (error) {
       console.error("Server error while getting news", error);
       res.status(500).json({ message: "Server error while getting news" });
