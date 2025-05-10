@@ -24,6 +24,7 @@ const Rout = ({
   cart,
   setCart,
   addtocart,
+  ProductDetail,
 }) => {
   return (
     <>
@@ -51,9 +52,17 @@ const Rout = ({
               close={close}
               setClose={setClose}
               addtocart={addtocart}
+              
             />
+            
           }
         />
+      <Route 
+        path="/product/:id" 
+        element={
+          <ProductDetail 
+            addtocart={addtocart} />} />
+
         <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/new" element={<New />} />

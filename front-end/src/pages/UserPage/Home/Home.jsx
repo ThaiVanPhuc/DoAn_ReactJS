@@ -1,229 +1,179 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 import { Link } from "react-router-dom";
 import { BsArrowRight } from "react-icons/bs";
-import { FiTruck } from "react-icons/fi";
-import { BsCurrencyDollar } from "react-icons/bs";
-import { CiPercent } from "react-icons/ci";
-import { BiHeadphone } from "react-icons/bi";
-import { CiShoppingCart } from "react-icons/ci";
-import { AiOutlineCloseCircle } from "react-icons/ai";
-import { FaEye } from "react-icons/fa";
-import { CiHeart } from "react-icons/ci";
-import "./Home.css";
+import banner from "../../../assets/box-Banner/background2.avif";
+import './Home.css';
 import Chatbox from "../../../components/Chatbox/chatbox";
 
-const Home = ({ detail, view, close, setClose, addtocart }) => {
-  const sliderRef = useRef();
-  const [currentImage, setCurrentImage] = useState(0);
-  const visibleImages = 4;
+const Home = ({addtocart}) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const images = [
-    "./img/product/tv.png",
-    "./img/product/watch.png",
-    "./img/product/Headphone.png",
-    "./img/product/ipad.png",
-    "./img/product/hinh2.png",
-    "./img/product/hinh1.png",
-  ];
-
+  // Lấy dữ liệu sản phẩm từ MongoDB qua API
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/products/all");
-        if (!response.ok) {
-          throw new Error("Failed to fetch products");
-        }
-        const data = await response.json();
-        setProducts(data);
+        const response = await axios.get('http://localhost:5000/api/home/all');
+        console.log('Dữ liệu trả về từ API:', response.data);
+        setProducts(response.data);
       } catch (error) {
-        setError(error.message);
+        console.error('Lỗi khi tải sản phẩm:', error);
+        setError('Không thể tải sản phẩm');
       } finally {
         setLoading(false);
       }
     };
-
-    fetchProducts();
+  
+    fetchData();
   }, []);
-
-  const handlePrev = () => {
-    setCurrentImage((prevImage) => prevImage - 1 + images.length);
-  };
-
-  const handleNext = () => {
-    setCurrentImage((prevImage) => (prevImage + 1) % images.length);
-  };
-
+ 
+  // Carousel Bootstrap
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      handleNext();
-    }, 3000);
-
-    return () => clearInterval(intervalId);
-  }, [currentImage]);
-
-  useEffect(() => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollLeft =
-        currentImage * sliderRef.current.offsetWidth;
+    const el = document.querySelector("#TechnologyCarousel");
+    if (el && window.bootstrap) {
+      new window.bootstrap.Carousel(el, {
+        interval: 8000,
+        ride: "carousel",
+        pause: false,
+        wrap: true,
+      });
     }
-  }, [currentImage]);
+  }, []);
+ 
 
+  if (loading) {
+    return <div className="text-center mt-5">Đang tải dữ liệu...</div>;
+  }
+
+  if (error) {
+    return <div className="text-danger text-center mt-5">{error}</div>;
+  }
+
+  
   return (
     <>
-      {close && (
-        <div className="products_detail">
-          <div className="container">
-            <button onClick={() => setClose(false)} className="closebtn">
-              <AiOutlineCloseCircle />
-            </button>
-            {detail.map((curElm) => (
-              <div className="productbox" key={curElm.id}>
-                <div className="img_box">
-                  <img src={curElm.Img} alt={curElm.Title} />
-                </div>
-                <div className="detail">
-                  <h4>{curElm.Cat}</h4>
-                  <h2>{curElm.Title}</h2>
-                  <p>
-                    A Screen Everyone Will Want: Whether your family is
-                    streaming or video chatting with friends...
-                  </p>
-                  <h3>${curElm.Price}</h3>
-                  <button onClick={() => addtocart(curElm)}>Add To Cart</button>
-                </div>
+      {/* Banner */}
+      <div className="top_banner py-5"  style={{ background: "linear-gradient(to right, #fffde7, #fff3e0)" }}>
+        <div className="container d-flex flex-column flex-md-row align-items-center justify-content-between">
+          <div className="text-center text-md-start mb-4 mb-md-0" style={{ maxWidth: "600px" }}>
+            <p className="text-warning fw-bold mb-2">Premium TECHNOLOGY</p>
+            <h1 className="fw-bold text-success display-5 mb-3">
+              The Best NoteBook <br /> Collection 2025
+            </h1>
+          </div>
+          <div id="TechnologyCarousel" className="carousel slide" data-bs-ride="carousel">
+            <div className="carousel-inner rounded shadow" style={{ width: "500px", height: "250px", overflow: "hidden" }}>
+              <div className="carousel-item active">
+                <img src="/images/background1.jpg" className="d-block w-100 h-100" alt="Banner 1" style={{ objectFit: "cover" }} />
               </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <div className="top_banner">
-        <div className="container">
-          <div className="detail">
-            <h2> The Best Note Book Collection 2023</h2>
-            <Link to="/product" className="link">
-              Shop Now <BsArrowRight />
-            </Link>
-          </div>
-          <div className="img_box">
-            <img src="./img/product/ipad.png" alt="Banner" />
-          </div>
-        </div>
-      </div>
-
-      <div className="product_type">
-        <div className="container" ref={sliderRef}>
-          <button className="prev-btn" onClick={handlePrev}>
-            &#8249;
-          </button>
-          {images.slice(0, visibleImages).map((image, index) => (
-            <div className="box" key={index}>
-              <div className="img_box">
-                <img
-                  src={images[(index + currentImage) % images.length]}
-                  alt={`Image ${index}`}
-                />
+              <div className="carousel-item">
+                <img src="/images/background.jpg" className="d-block w-100 h-100" alt="Banner 2" style={{ objectFit: "cover" }} />
               </div>
             </div>
-          ))}
-          <button className="next-btn" onClick={handleNext}>
-            &#8250;
-          </button>
-        </div>
-      </div>
-
-      <div className="about">
-        <div className="container">
-          <div className="box">
-            <div className="icon">
-              <FiTruck />
-            </div>
-            <div className="detail">
-              <h3>Free Shipping</h3>
-              <p>Orders above $1000</p>
-            </div>
           </div>
-          <div className="box">
-            <div className="icon">
-              <BsCurrencyDollar />
-            </div>
-            <div className="detail">
-              <h3>Return & Refund</h3>
-              <p>Money Back Guarantee</p>
-            </div>
-          </div>
-          <div className="box">
-            <div className="icon">
-              <CiPercent />
-            </div>
-            <div className="detail">
-              <h3>Member Discount</h3>
-              <p>On every Order</p>
-            </div>
-          </div>
-          <div className="box">
-            <div className="icon">
-              <BiHeadphone />
-            </div>
-            <div className="detail">
-              <h3>Customer Support</h3>
-              <p>24/7 Call Support</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="product">
-        <h2> Top Products</h2>
-        <div className="container">
-          {loading && <p>Loading products...</p>}
-          {error && <p>{error}</p>}
-          {!loading &&
-            !error &&
-            products.map((curElm) => (
-              <div className="box" key={curElm._id}>
-                <div className="img_box">
-                  <img src={curElm.Img} alt={curElm.Title} />
-                  <div className="icon">
-                    <li onClick={() => addtocart(curElm)}>
-                      <CiShoppingCart />
-                    </li>
-                    <li onClick={() => view(curElm)}>
-                      <FaEye />
-                    </li>
-                    <li>
-                      <CiHeart />
-                    </li>
+        </div> </div>
+   {/* Hien thi san pham  */}
+    <div className="container mt-5"  >
+      <div className="row"> {products.map((product) => (
+          <div key={product._id} className="col-12 col-sm-6 col-md-3 mb-4">
+            <div className="card h-100 shadow-sm border" style={{  minHeight: "400px",  borderRadius: "6px",  overflow: "hidden", }}>
+              <div className="position-relative">
+              <img
+                  src={`http://localhost:5000${product.Image}`}  alt={product.Name} 
+                className="card-img-top"  style={{ height: "250px",  width: "100%", objectFit: "cover",  backgroundColor: "#f8f8f8", }}  />
+              </div>
+              <div className="card-body d-flex flex-column text-center">
+                <h5 className="card-title fw-bold" style={{color:'#094',}}>{product.Name}</h5>
+                <p className="card-text text-muted small flex-grow-1">{product.Description}</p>
+                <div className="d-flex justify-content-between align-items-center mt-auto">
+                  <div className="fw-semi text-dark fs-7 mb-0">
+                  {product.Price.toLocaleString("vi-VN",)} VND
                   </div>
-                </div>
-                <div className="detail">
-                  <p>{curElm.Cat}</p>
-                  <h3>{curElm.Title}</h3>
-                  <h4>${curElm.Price}</h4>
+                  <button 
+                      className="btn btn-outline-success ms-2 text-dark" 
+                      style={{ background: 'rgb(212, 243, 245)' }}onClick={() => addtocart(product)} >
+                       
+                      🛒 Add to cart
+                    </button>
                 </div>
               </div>
-            ))}
-        </div>
+            </div>
+          </div>
+        ))}
       </div>
+    </div>
+    {/*End San pham */}
 
-      <div className="banner">
-        <div className="container">
-          <div className="detail">
-            <h4>LATEST TECHNOLOGY ADDED</h4>
-            <h3>Apple iPad 10.2 9th Gen - 2021</h3>
-            <Link to="/product" className="link">
-              Shop Now <BsArrowRight />
-            </Link>
+    {/* Seller */}
+    <div className="container-fluid service py-5">
+      <div className="container py-5">
+        <div className="row g-4 justify-content-center">
+          {/* Feature 1 - Ipad */}
+          <div className="col-md-6 col-lg-4">
+            <div className="border border-dark rounded overflow-hidden bg-dark cursor-pointer">
+              <img src="/seller/ipad.jpeg" className="img-fluid w-100" alt="Ipad" />
+              <div className=" text-center p-4 rounded-bottom" style={{ backgroundColor: '#AEC6CF' }}>
+                <h5 className="text-light">Ipad Gen 10 </h5>
+                <h3 className="text-secondary">Free delivery</h3>
+              </div>
+            </div>
           </div>
-          <div className="img_box">
-            <img src="./img/product/ipad.png" alt="iPad" />
+          {/* Feature 2 - Smart watch */}
+          <div className="col-md-6 col-lg-4">
+          <div className="border border-dark rounded overflow-hidden cursor-pointer">
+            <img src="/seller/watch.jpg" className="img-fluid w-100" alt="watch" />
+            <div className="text-center p-4 rounded-bottom" style={{ backgroundColor: 'rgb(247, 165, 118)' }}>
+              <h5 className="text-light">Smart watch</h5>
+              <h3 className="text-secondary">Discount 30$</h3>
+            </div>
           </div>
         </div>
-        <Chatbox />
+
+
+          {/* Feature 3 - */}
+          <div className="col-md-6 col-lg-4">
+          <div className="border border-dark rounded overflow-hidden cursor-pointer">
+            <img src="/seller/heaphones.jpg" className="img-fluid w-100" alt="Headphones" />
+            <div className="text-center p-4 rounded-bottom" style={{ backgroundColor: 'rgb(128, 238, 142)' }}>
+              <h5 className="text-light">Headphones Bluetooth</h5>
+              <h3 className="text-secondary">10% Discount</h3>
+            </div>
+          </div>
+        </div>
+        </div>
       </div>
+    </div>
+    {/* End Seller */}
+
+    {/* Banner 2 */}
+    <div className="banner py-5 bg-light" style={{ background: "linear-gradient(to right, #fffde7, #fff3e0)" }} >
+    <div className="container p-4 rounded" style={{ backgroundColor: "rgb(240, 248, 249)",  color: "#333", }}>
+    <div className="detail mb-4">
+    <h3 className="fw-bold fs-5 text-success mb-2"> LATEST TECHNOLOGY ADDED</h3>     
+    <h3
+        className="h3 mb-3"
+        style={{ color: "grey", fontSize: "1.5rem", fontWeight: "500", }}  >
+        Explore the Newest Tech: TVs, Laptops, Headphones & More
+      </h3>
+      <Link to="/product" className="link">
+        Shop Now <BsArrowRight />
+      </Link>
+    </div>
+    <div className="img_box">
+      <img
+        src={banner}
+        className="d-block w-100 h-100"
+        alt="Banner"
+        style={{ objectFit: "cover" }}
+      />
+    </div>
+  </div>
+  <Chatbox />
+</div>
+ {/*End Banner 2 */}
+
     </>
   );
 };

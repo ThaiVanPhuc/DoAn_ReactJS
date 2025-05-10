@@ -11,9 +11,9 @@ const router = express.Router();
 router.get("/all", ProductController.getAllProduct);
 router.get("/:id", ProductController.getProductById);
 router.post(
-  "/",
-  authenticate,
-  authorizeAdmin,
+  "/add",
+  // authenticate,
+  // authorizeAdmin,
   upload.single("Img"),
   ProductController.addProduct
 );
