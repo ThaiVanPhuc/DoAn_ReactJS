@@ -1,10 +1,10 @@
 const productRouter = require("./productRoutes");
 const usersRouter = require("./userRoutes");
-const chatRouter = require("./chatRoute");
+const newsRouter = require("./newsRoutes");
 
 function route(app) {
   app.use("/api/products", productRouter);
-  app.use("/api/chat", chatRouter);
+  app.use("/api/news", newsRouter);
   app.use("/api", usersRouter);
 }
 

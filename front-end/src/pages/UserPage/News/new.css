@@ -1,0 +1,91 @@
+.news-list {
+    padding: 40px 10%;
+    background-color: #f9f9f9;
+}
+
+.news-title {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    text-transform: uppercase;
+}
+
+.news-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.news-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+}
+
+.news-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.news-card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 15px;
+    color: #222;
+}
+
+.news-card-date {
+    font-size: 14px;
+    color: #666;
+    margin: 0 15px 15px;
+}
+
+.news a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.title-nav-page {
+    padding: 30px 10%;
+    background-color: #f2f2f2;
+}
+
+.title-page {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.nav-page {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.nav-page li {
+    font-size: 14px;
+}
+
+.nav-page a {
+    text-decoration: none;
+    color: #007BFF;
+}
+
+.nav-page .active {
+    color: #555;
+}
+
+.news-body {
+    line-height: 1.7;
+    color: #333;
+    margin-bottom: 50px;
+}

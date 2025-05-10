@@ -65,7 +65,7 @@ const Nav = ({ searchbtn }) => {
                     <ul className="nav-menu">
                         <Link to="/" className="nav-link">Home</Link>
                         <Link to="/product" className="nav-link">Sản phẩm</Link>
-                        <Link to="/about" className="nav-link">Giới thiệu</Link>
+                        <Link to="/new" className="nav-link">Giới thiệu</Link>
                         <Link to="/contact" className="nav-link">Liên hệ</Link>
                     </ul>
                 </div>
