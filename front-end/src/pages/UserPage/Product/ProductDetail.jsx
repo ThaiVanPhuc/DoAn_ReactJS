@@ -63,8 +63,7 @@ const ProductDetail = ({ addtocart }) => {
           {renderStars(product.rating || 4)}
           <span className="text-muted ms-2">(130 đánh giá)</span>
         </div>
-
-        <h4 className="fw-bold mb-3">{product.Price.toLocaleString("vi-VN",)} VND</h4>
+          <h4> {parseFloat(product.Price).toLocaleString('vi-VN')} VND</h4>
 
         <p className="text-muted mb-3">{product.Description}</p>
 

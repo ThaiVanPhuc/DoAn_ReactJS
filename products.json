@@ -41,7 +41,7 @@
       "Title": "Tai nghe Sony WH-1000XM5",
       "Cat": "Headphone",
       "Price": "8990000",
-      "Img": "/products/heaphones/hinh1.png",
+      "Img": "/products/headphones/hinh1.png",
       "Description": "Tai nghe chống ồn chủ động Sony WH-1000XM5 mang lại trải nghiệm âm thanh đỉnh cao với công nghệ khử tiếng ồn hàng đầu, âm bass sâu và thời lượng pin lên đến 30 giờ. Thiết kế gọn nhẹ, sang trọng và hỗ trợ sạc nhanh.",
       "Luotban": "620"
     },
@@ -50,7 +50,7 @@
       "Title": "Tai nghe Apple AirPods Pro 2",
       "Cat": "Headphone",
       "Price": "6590000",
-      "Img": "/products/heaphones/hinh2.png",
+      "Img": "/products/headphones/hinh2.png",
       "Description": "AirPods Pro 2 với chip H2 cho âm thanh vượt trội, khử tiếng ồn chủ động thông minh và thời lượng pin kéo dài. Thiết kế vừa vặn với tai, hỗ trợ sạc không dây MagSafe và khả năng kết nối mượt mà với các thiết bị Apple.",
       "Luotban": "890"
     },
@@ -59,7 +59,7 @@
       "Title": "Tai nghe JBL Tune 510BT",
       "Cat": "Headphone",
       "Price": "1290000",
-      "Img": "/products/heaphones/hinh3.png",
+      "Img": "/products/headphones/hinh3.png",
       "Description": "Tai nghe không dây JBL Tune 510BT mang đến âm thanh JBL Pure Bass mạnh mẽ, kết nối Bluetooth 5.0 ổn định và thời lượng pin lên đến 40 giờ. Thiết kế gọn nhẹ, gập gọn tiện lợi cho người dùng năng động.",
       "Luotban": "740"
     },
@@ -68,12 +68,11 @@
       "Title": "Tai nghe gaming Razer BlackShark V2",
       "Cat": "Headphone",
       "Price": "2490000",
-      "Img": "/products/heaphones/hinh4.png",
+      "Img": "/products/headphones/hinh4.png",
       "Description": "Razer BlackShark V2 là tai nghe chơi game chuyên nghiệp với màng loa TriForce Titanium 50mm, micro chống ồn có thể tháo rời và công nghệ âm thanh THX Spatial Audio giúp tái hiện không gian 3D chân thực cho game thủ.",
       "Luotban": "510"
     }
   ,
-
 
   {
     "id": 9,

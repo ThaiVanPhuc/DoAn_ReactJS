@@ -4,10 +4,7 @@ import './Login.css';
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const [formData, setFormData] = useState({ email: '', password: '' });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,9 +27,7 @@ const SignIn = () => {
     try {
       const response = await fetch('http://localhost:5000/api/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
@@ -41,17 +36,17 @@ const SignIn = () => {
       if (response.ok) {
         const { token, user } = data;
 
-        // Lưu token và thông tin người dùng vào localStorage
+        // ✅ Lưu thông tin người dùng và token
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
 
         alert('Đăng nhập thành công!');
 
-        // Điều hướng dựa trên vai trò
-        if (user.role === 'admin') {
+        // ✅ Điều hướng theo vai trò
+        const role = user.role?.toLowerCase();
+        if (role === 'admin') {
           navigate('/admin');
         } else {
-
           navigate('/');
         }
       } else {
@@ -65,10 +60,7 @@ const SignIn = () => {
 
   return (
     <div className="login-container">
-      {/* Bên trái: ảnh */}
       <div className="login-image" />
-
-      {/* Bên phải: form */}
       <div className="login-form">
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
