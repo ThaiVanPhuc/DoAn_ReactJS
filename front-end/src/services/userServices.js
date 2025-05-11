@@ -1,16 +1,9 @@
 import * as httpRequest from "../utils/httpRequest";
 
-const authHeader = () => ({
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  },
-});
-
 export const getAllUsers = async (page = 1, limit = 5) => {
   try {
     const respone = await httpRequest.get(
-      `api/users?page=${page}&limit=${limit}`,
-      authHeader()
+      `api/users?page=${page}&limit=${limit}`
     );
     console.log("đây là", respone);
     return respone;
@@ -21,7 +14,7 @@ export const getAllUsers = async (page = 1, limit = 5) => {
 };
 
 export const deleteUser = async (id) => {
-  const res = await httpRequest.del(`api/users/${id}`, authHeader());
+  const res = await httpRequest.del(`api/users/${id}`);
   return res.data;
 };
 
@@ -31,10 +24,6 @@ export const createUser = async (userData) => {
 };
 
 export const updateUser = async (id, data) => {
-  const res = await httpRequest.patch(
-    `/api/users/edit/${id}`,
-    data,
-    authHeader()
-  );
+  const res = await httpRequest.patch(`/api/users/edit/${id}`, data);
   return res.data;
 };

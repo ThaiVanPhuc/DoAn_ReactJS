@@ -29,10 +29,10 @@ const AdminLayout = ({ children }) => {
                         Manage Product
                     </Link>
                     <Link
-                        to="/admin/chat"
-                        className={location.pathname === '/admin/chat' ? styles.active : ''}
+                        to="/admin/news"
+                        className={location.pathname === '/admin/news' ? styles.active : ''}
                     >
-                        Chat
+                        Manage News
                     </Link>
                 </nav>
             </aside>

@@ -57,10 +57,6 @@ class NewController {
         title,
         content,
         imgStory,
-        user: {
-          email: req.email,
-          username: req.username,
-        },
       });
       await newStory.save();
       res.status(200).json({ message: "News Created successfully", newStory });

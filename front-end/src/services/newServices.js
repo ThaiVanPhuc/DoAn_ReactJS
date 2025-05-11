@@ -1,15 +1,11 @@
 // services/productService.js
 import * as httpRequest from "../utils/httpRequest";
 
-const authHeader = () => ({
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  },
-});
-
-export const getAllNews = async () => {
+export const getAllNews = async (page, limit) => {
   try {
-    const response = await httpRequest.get("api/news/all", authHeader());
+    const response = await httpRequest.get(
+      `api/news?page=${page}&limit=${limit}`
+    );
     console.log(response);
     return response;
   } catch (error) {
@@ -20,7 +16,7 @@ export const getAllNews = async () => {
 
 export const getNewById = async (id) => {
   try {
-    const response = await httpRequest.get(`api/news/${id}`, authHeader());
+    const response = await httpRequest.get(`api/news/${id}`);
     return response;
   } catch (error) {
     console.error("Error getNewById", error);
@@ -34,7 +30,7 @@ export const createNew = async (newData) => {
     for (let key in newData) {
       formData.append(key, newData[key]);
     }
-    const response = await httpRequest.post("api/news", formData, authHeader());
+    const response = await httpRequest.post("api/news", formData);
     return response;
   } catch (error) {
     console.error("Error createNew", error);
@@ -44,11 +40,7 @@ export const createNew = async (newData) => {
 
 export const updateNew = async (id, data) => {
   try {
-    const response = await httpRequest.put(
-      `api/news/${id}`,
-      data,
-      authHeader()
-    );
+    const response = await httpRequest.put(`api/news/${id}`, data);
     return response;
   } catch (error) {
     console.error("Error updateNew", error);
@@ -58,7 +50,7 @@ export const updateNew = async (id, data) => {
 
 export const deleteNew = async (id) => {
   try {
-    const response = await httpRequest.del(`api/news/${id}`, authHeader());
+    const response = await httpRequest.del(`api/news/${id}`);
     return response;
   } catch (error) {
     console.error("Error deleteNew", error);

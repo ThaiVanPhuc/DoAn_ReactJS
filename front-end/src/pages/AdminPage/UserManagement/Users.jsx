@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Users.module.scss";
 import * as userServices from "../../../services/userServices";
 

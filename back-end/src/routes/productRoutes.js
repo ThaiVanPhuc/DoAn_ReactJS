@@ -9,7 +9,7 @@ const {
 const router = express.Router();
 
 router.get("/all", ProductController.getAllProduct);
-router.get("/search",ProductController.searchProduct);
+router.get("/search", ProductController.searchProduct);
 
 router.get("/:id", ProductController.getProductById);
 router.post(

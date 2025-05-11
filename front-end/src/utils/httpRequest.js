@@ -4,17 +4,38 @@ const httpRequest = axios.create({
   baseURL: "http://localhost:5000/",
 });
 
+httpRequest.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+httpRequest.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 401) {
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+    }
+    return Promise.reject(error);
+  }
+);
+
 // GET
-export const get = async (path, headers = {}) => {
-  const response = await httpRequest.get(path, headers);
+export const get = async (path) => {
+  const response = await httpRequest.get(path);
   console.log(response);
   return response.data;
 };
 
 // POST
-export const post = async (path, payload, headers = {}) => {
+export const post = async (path, payload) => {
   try {
-    const response = await httpRequest.post(path, payload, headers);
+    const response = await httpRequest.post(path, payload);
     return response.data;
   } catch (error) {
     return new Error(`Error: ${error}`);
@@ -22,9 +43,9 @@ export const post = async (path, payload, headers = {}) => {
 };
 
 // PUT
-export const put = async (path, payload, headers = {}) => {
+export const put = async (path, payload) => {
   try {
-    const response = await httpRequest.put(path, payload, headers);
+    const response = await httpRequest.put(path, payload);
     return response.data;
   } catch (error) {
     return new Error(`Error: ${error}`);
@@ -32,18 +53,18 @@ export const put = async (path, payload, headers = {}) => {
 };
 
 // DELETE
-export const del = async (path, headers = {}) => {
+export const del = async (path) => {
   try {
-    const response = await httpRequest.delete(path, headers);
+    const response = await httpRequest.delete(path);
     return response.data;
   } catch (error) {
     return new Error(`Error: ${error}`);
   }
 };
 
-export const patch = async (path, payload, headers = {}) => {
+export const patch = async (path, payload) => {
   try {
-    const response = await httpRequest.patch(path, payload, headers);
+    const response = await httpRequest.patch(path, payload);
     return response.data;
   } catch (error) {
     return new Error(`Error: ${error}`);

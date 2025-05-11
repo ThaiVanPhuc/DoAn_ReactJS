@@ -1,15 +1,9 @@
 // services/productService.js
 import * as httpRequest from "../utils/httpRequest";
 
-const authHeader = () => ({
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  },
-});
-
 export const getAllProducts = async () => {
   try {
-    const response = await httpRequest.get("api/products/all", authHeader());
+    const response = await httpRequest.get("api/products/all");
     console.log(response);
     return response;
   } catch (error) {
@@ -20,7 +14,7 @@ export const getAllProducts = async () => {
 
 export const getProductById = async (id) => {
   try {
-    const response = await httpRequest.get(`api/products/${id}`, authHeader());
+    const response = await httpRequest.get(`api/products/${id}`);
     return response;
   } catch (error) {
     console.error("Error getProductById", error);
@@ -34,11 +28,7 @@ export const createProduct = async (productData) => {
     for (let key in productData) {
       formData.append(key, productData[key]);
     }
-    const response = await httpRequest.post(
-      "api/products",
-      formData,
-      authHeader()
-    );
+    const response = await httpRequest.post("api/products", formData);
     return response;
   } catch (error) {
     console.error("Error createProduct", error);
@@ -48,11 +38,7 @@ export const createProduct = async (productData) => {
 
 export const updateProduct = async (id, productData) => {
   try {
-    const response = await httpRequest.put(
-      `api/products/${id}`,
-      productData,
-      authHeader()
-    );
+    const response = await httpRequest.put(`api/products/${id}`, productData);
     return response;
   } catch (error) {
     console.error("Error updateProduct", error);
@@ -62,7 +48,7 @@ export const updateProduct = async (id, productData) => {
 
 export const deleteProduct = async (id) => {
   try {
-    const response = await httpRequest.del(`api/products/${id}`, authHeader());
+    const response = await httpRequest.del(`api/products/${id}`);
     return response;
   } catch (error) {
     console.error("Error deleteProduct", error);

@@ -11,6 +11,8 @@ import AdminProductPage from '../pages/AdminPage/ProductManagement/Product';
 import AdminLayout from "../layouts/Admin/AdminLayout";
 import PrivateRoute from "./PrivateRoute";
 import SearchPage from "../pages/UserPage/Product/searchProduct";
+import AdminNewPage from '../pages/AdminPage/NewPage';
+
 
 const Rout = ({
   product,
@@ -50,19 +52,24 @@ const Rout = ({
               close={close}
               setClose={setClose}
               addtocart={addtocart}
-              
+
             />
-            
+
           }
         />
-      <Route 
-        path="/product/:id" 
-        element={
-          <ProductDetail 
-            addtocart={addtocart} />} />
+        <Route
+          path="/product/:id"
+          element={
+            <ProductDetail
+              addtocart={addtocart} />} />
         <Route path="/search" element={<SearchPage addtocart={addtocart}
- />} />  
+        />} />
 
+        <Route
+          path="/product/:id"
+          element={
+            <ProductDetail
+              addtocart={addtocart} />} />
 
         <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
         <Route path="/contact" element={<Contact />} />
@@ -101,16 +108,16 @@ const Rout = ({
         />
 
         <Route
-          path="/admin/chat"
+          path="/admin/news"
           element={
             <PrivateRoute>
               <AdminLayout>
-                {/* <AdminProductPage /> */}
+                <AdminNewPage />
               </AdminLayout>
             </PrivateRoute>
           }
         />
-      </Routes>
+      </Routes >
     </>
   );
 };

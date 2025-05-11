@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import "./search.css";
-const SearchPage = ({addtocart}) => {
+const SearchPage = ({ addtocart }) => {
   const location = useLocation();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -52,25 +52,25 @@ const SearchPage = ({addtocart}) => {
                     }}
                   />
                 </div>
-                    <div className="p-3">
-                <h5 className="product-title text-center">{product.Title}</h5>
-                <p className="product-description" style={{ color: "grey", fontSize: '14px' }}>
+                <div className="p-3">
+                  <h5 className="product-title text-center">{product.Title}</h5>
+                  <p className="product-description" style={{ color: "grey", fontSize: '14px' }}>
                     Đã bán {product.Luotban} lượt
-                </p>
+                  </p>
 
-                <div className="d-flex justify-content-between align-items-center">
+                  <div className="d-flex justify-content-between align-items-center">
                     <h6 className="product-price">
-                    {parseFloat(product.Price).toLocaleString('vi-VN')} VND
+                      {parseFloat(product.Price).toLocaleString('vi-VN')} VND
                     </h6>
-                    
+
                     <Button
-                    variant="success"
-                    className="add-to-cart-btn"
-                    onClick={() => addtocart(product)}
+                      variant="success"
+                      className="add-to-cart-btn"
+                      onClick={() => addtocart(product)}
                     >
-                    Add to Cart
+                      Add to Cart
                     </Button>
-                </div>
+                  </div>
                 </div>
 
               </div>
