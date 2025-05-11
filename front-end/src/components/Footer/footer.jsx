@@ -42,7 +42,7 @@ const Footer = () => {
             <ul className="list-unstyled">
               <li><Link to="/" className="text-decoration-none" style={{ color: "#333333" }}>Home</Link></li>
               <li><Link to="/product" className="text-decoration-none" style={{ color: "#333333" }}>Sản phẩm</Link></li>
-              <li><Link to="/about" className="text-decoration-none" style={{ color: "#333333" }}>Giới thiệu</Link></li>
+              <li><Link to="/news" className="text-decoration-none" style={{ color: "#333333" }}>Tin Tức</Link></li>
               <li><Link to="/contact" className="text-decoration-none" style={{ color: "#333333" }}>Liên hệ</Link></li>
             </ul>
           </div>
@@ -52,7 +52,7 @@ const Footer = () => {
             <h5 className="fw-bold fs-5 text-success mb-3">About contact</h5>
             <ul className="list-unstyled">
               <li>Email: vitinhtu@shoptech.vn</li>
-              <li>Hotline: 0123 456 789</li> 
+              <li>Hotline: 0123 456 789</li>
               <li>Address: 33 Xô Viết Nghệ Tĩnh - Đà Nẵng</li>
               <li>Payment Accepted</li>
             </ul>

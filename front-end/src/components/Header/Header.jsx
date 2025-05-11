@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Nav, Navbar, Button, Form, FormControl } from "react-bootstrap";
-import { FaHeart, FaShoppingBag, FaUser, FaSearch } from "react-icons/fa"; 
-import { Link, useNavigate } from "react-router-dom";  
+import { FaHeart, FaShoppingBag, FaUser, FaSearch } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/box-Banner/logo.gif";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [user, setUser] = useState(null);
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -47,22 +47,24 @@ const Header = () => {
           <Nav className="mx-auto">
             <Nav.Item><Link to="/" className="nav-link">Home</Link></Nav.Item>
             <Nav.Item><Link to="/product" className="nav-link">Sản phẩm</Link></Nav.Item>
-            <Nav.Item><Link to="/about" className="nav-link">Giới thiệu</Link></Nav.Item>
+            <Nav.Item><Link to="/news" className="nav-link">Tin Tức</Link></Nav.Item>
             <Nav.Item><Link to="/contact" className="nav-link">Liên hệ</Link></Nav.Item>
-          </Nav>    
+          </Nav>
 
           <Form onSubmit={handleSearchSubmit} className="me-3">
-          <div className="d-flex align-items-center" style={{ maxWidth: "320px" }}>
-            <FormControl type="text" placeholder="Tìm kiếm sản phẩm" value={searchQuery}
-              onChange={handleSearchChange}
-              style={{ borderRadius: "20px", padding: "10px",  flex: 1 }}/>
-            <Button variant="primary" type="submit"
-              style={{marginLeft: "8px",borderRadius: "20px", padding: "8px 12px", 
-              display: "flex", alignItems: "center",justifyContent: "center" }}>
-              <FaSearch />
-            </Button>
-          </div>
-        </Form>
+            <div className="d-flex align-items-center" style={{ maxWidth: "320px" }}>
+              <FormControl type="text" placeholder="Tìm kiếm sản phẩm" value={searchQuery}
+                onChange={handleSearchChange}
+                style={{ borderRadius: "20px", padding: "10px", flex: 1 }} />
+              <Button variant="primary" type="submit"
+                style={{
+                  marginLeft: "8px", borderRadius: "20px", padding: "8px 12px",
+                  display: "flex", alignItems: "center", justifyContent: "center"
+                }}>
+                <FaSearch />
+              </Button>
+            </div>
+          </Form>
           <div className="d-flex align-items-center gap-3">
             <Link to="/favorites"><FaHeart size={20} color="red" /></Link>
             <Link to="/cart"><FaShoppingBag size={20} color="green" /></Link>
