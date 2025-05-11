@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Nav, Navbar, Button, Form, FormControl } from "react-bootstrap";
 import { FaHeart, FaShoppingBag, FaUser, FaSearch } from "react-icons/fa"; 
@@ -7,87 +7,78 @@ import logo from "../../assets/box-Banner/logo.gif";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();  
 
-  // Hàm xử lý thay đổi giá trị tìm kiếm
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
-  // Hàm xử lý khi người dùng submit tìm kiếm
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    console.log("Tìm kiếm với từ khóa:", searchQuery);
     if (searchQuery.trim()) {
-      // Điều hướng đến trang tìm kiếm mới, truyền từ khóa tìm kiếm qua URL
       navigate(`/search?keyword=${searchQuery}`);
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    navigate("/login");
   };
 
   return (
     <Navbar expand="lg" style={{ backgroundColor: "#fbdada" }}>
       <Container>
         <Navbar.Brand as={Link} to="/">
-          <img
-            src={logo}
-            alt="logo"
-            width="40px" height="40px"
-            className="me-2"
-          />
+          <img src={logo} alt="logo" width="40" height="40" className="me-2" />
           <span className="fw-bold text-primary">TECHNOLOGY SHOP</span>
         </Navbar.Brand>
 
-        {/* Toggle Navbar */}
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav" className="justify-content-between">
           <Nav className="mx-auto">
-            <Nav.Item>
-              <Link to="/" className="nav-link">Home</Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Link to="/product" className="nav-link">Sản phẩm</Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Link to="/about" className="nav-link">Giới thiệu</Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Link to="/contact" className="nav-link">Liên hệ</Link>
-            </Nav.Item>
+            <Nav.Item><Link to="/" className="nav-link">Home</Link></Nav.Item>
+            <Nav.Item><Link to="/product" className="nav-link">Sản phẩm</Link></Nav.Item>
+            <Nav.Item><Link to="/about" className="nav-link">Giới thiệu</Link></Nav.Item>
+            <Nav.Item><Link to="/contact" className="nav-link">Liên hệ</Link></Nav.Item>
           </Nav>    
 
-          {/* Form tìm kiếm */}
-          <Form className="d-flex align-items-center" onSubmit={handleSearchSubmit} style={{ width: "200px" }}>
-            <FormControl
-              type="text"
-              placeholder="Tìm kiếm sản phẩm"
-              className="me-2"
-              value={searchQuery}
+          <Form onSubmit={handleSearchSubmit} className="me-3">
+          <div className="d-flex align-items-center" style={{ maxWidth: "320px" }}>
+            <FormControl type="text" placeholder="Tìm kiếm sản phẩm" value={searchQuery}
               onChange={handleSearchChange}
-              style={{ width: "100%", padding: "10px", borderRadius: "20px" }}
-            />
-            <Button variant="outline-primary" type="submit" style={{ border: "none", backgroundColor: "transparent", padding: "0" }}>
-              <FaSearch size={20} color="#007bff" />
+              style={{ borderRadius: "20px", padding: "10px",  flex: 1 }}/>
+            <Button variant="primary" type="submit"
+              style={{marginLeft: "8px",borderRadius: "20px", padding: "8px 12px", 
+              display: "flex", alignItems: "center",justifyContent: "center" }}>
+              <FaSearch />
             </Button>
-          </Form>
-          
-          {/* ICON */}
+          </div>
+        </Form>
           <div className="d-flex align-items-center gap-3">
-            <Link to="/favorites">
-              <FaHeart size={20} color="red" />
-            </Link>
-            <Link to="/cart">
-              <FaShoppingBag size={20} color="green" />
-            </Link>
-            <Link to="/login">
-              <FaUser size={20} />
-            </Link>
-            {/* Đăng ký + Đăng nhập */}
-            <Link to="/signup">
-              <Button variant="outline-secondary" size="sm">Đăng ký</Button>
-            </Link>
-            <Link to="/login">
-              <Button variant="outline-secondary" size="sm">Đăng nhập</Button>
-            </Link>
+            <Link to="/favorites"><FaHeart size={20} color="red" /></Link>
+            <Link to="/cart"><FaShoppingBag size={20} color="green" /></Link>
+
+            {user ? (
+              <>
+                <span className="fw-bold">{user.username}</span>
+                <Button variant="outline-danger" size="sm" onClick={handleLogout}>Logout</Button>
+              </>
+            ) : (
+              <>
+                <Link to="/login"><FaUser size={20} /></Link>
+                <Link to="/signup"><Button variant="outline-secondary" size="sm">Sign up</Button></Link>
+                <Link to="/login"><Button variant="outline-secondary" size="sm">Sign In</Button></Link>
+              </>
+            )}
           </div>
         </Navbar.Collapse>
       </Container>

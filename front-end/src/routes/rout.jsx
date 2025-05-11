@@ -12,7 +12,6 @@ import AdminLayout from "../layouts/Admin/AdminLayout";
 import PrivateRoute from "./PrivateRoute";
 import SearchPage from "../pages/UserPage/Product/searchProduct";
 
-
 const Rout = ({
   product,
   setProduct,
@@ -100,6 +99,7 @@ const Rout = ({
             </PrivateRoute>
           }
         />
+
         <Route
           path="/admin/chat"
           element={

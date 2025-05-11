@@ -68,7 +68,7 @@ class ProductController {
     }
   }
 
-// controllers/ProductController.js
+// tim kiem san pham
 
     async searchProduct(req, res) {
   try {
@@ -93,8 +93,5 @@ class ProductController {
 }
 
 }
-
-
-
 
 module.exports = new ProductController();
