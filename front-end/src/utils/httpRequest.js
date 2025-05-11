@@ -35,7 +35,12 @@ export const get = async (path) => {
 // POST
 export const post = async (path, payload) => {
   try {
-    const response = await httpRequest.post(path, payload);
+    const isFormData = payload instanceof FormData;
+    const response = await httpRequest.post(path, payload, {
+      headers: isFormData
+        ? { "Content-Type": "multipart/form-data" }
+        : { "Content-Type": "application/json" },
+    });
     return response.data;
   } catch (error) {
     return new Error(`Error: ${error}`);

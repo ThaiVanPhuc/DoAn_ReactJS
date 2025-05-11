@@ -8,7 +8,7 @@ const AdminNewsPage = () => {
         id: "",
         title: "",
         content: "",
-        imgStory: "",
+        imgStory: null,
     });
     const [error, setError] = useState("");
     const [showModal, setShowModal] = useState(false);
@@ -58,14 +58,18 @@ const AdminNewsPage = () => {
             id: news._id,
             title: news.title,
             content: news.content,
-            imgStory: news.imgStory,
+            imgStory: null,
         });
         setShowModal(true);
     };
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        const { name, value, files } = e.target;
+        if (name === "imgStory") {
+            setFormData((prev) => ({ ...prev, imgStory: files[0] }));
+        } else {
+            setFormData((prev) => ({ ...prev, [name]: value }));
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -73,11 +77,12 @@ const AdminNewsPage = () => {
         setError("");
 
         try {
-            const submitData = {
-                title: formData.title,
-                content: formData.content,
-                imgStory: formData.imgStory,
-            };
+            const submitData = new FormData();
+            submitData.append("title", formData.title);
+            submitData.append("content", formData.content);
+            if (formData.imgStory) {
+                submitData.append("imgStory", formData.imgStory);
+            }
 
             if (formData.id) {
                 await newsServices.updateNew(formData.id, submitData);
@@ -89,7 +94,7 @@ const AdminNewsPage = () => {
                 id: "",
                 title: "",
                 content: "",
-                imgStory: "",
+                imgStory: null,
             });
             setShowModal(false);
             fetchNews();
@@ -104,7 +109,7 @@ const AdminNewsPage = () => {
             id: "",
             title: "",
             content: "",
-            imgStory: "",
+            imgStory: null,
         });
         setShowModal(true);
     };
@@ -115,7 +120,7 @@ const AdminNewsPage = () => {
             id: "",
             title: "",
             content: "",
-            imgStory: "",
+            imgStory: null,
         });
         setError("");
     };
@@ -131,7 +136,6 @@ const AdminNewsPage = () => {
                         <th>#</th>
                         <th>Tiêu đề</th>
                         <th>Hình ảnh</th>
-                        <th>Người đăng</th>
                         <th>Ngày tạo</th>
                         <th>Actions</th>
                     </tr>
@@ -142,7 +146,6 @@ const AdminNewsPage = () => {
                             <td>{(page - 1) * 5 + index + 1}</td>
                             <td>{item.title}</td>
                             <td><img src={item.imgStory} alt="" width={100} /></td>
-                            <td>{item.user.username}</td>
                             <td>{new Date(item.createdAt).toLocaleDateString()}</td>
                             <td>
                                 <button className={styles.editBtn} onClick={() => handleEdit(item)}>Edit</button>
@@ -167,7 +170,7 @@ const AdminNewsPage = () => {
                         <form onSubmit={handleSubmit} className={styles.form}>
                             <input type="text" name="title" placeholder="Tiêu đề" value={formData.title} onChange={handleChange} required />
                             <textarea name="content" placeholder="Nội dung" value={formData.content} onChange={handleChange} required />
-                            <input type="file" name="imgStory" placeholder="URL hình ảnh" value={formData.imgStory} onChange={handleChange} required />
+                            <input type="file" name="imgStory" onChange={handleChange} required={!formData.id} />
                             <div className={styles.modalButtons}>
                                 <button type="submit" className={styles.saveBtn}>{formData.id ? "Cập nhật" : "Thêm"}</button>
                                 <button type="button" className={styles.cancelBtn} onClick={closeModal}>Hủy</button>
@@ -181,7 +184,7 @@ const AdminNewsPage = () => {
                 <div className={styles.modalOverlay}>
                     <div className={styles.modalContent}>
                         <h3>Bạn có chắc chắn muốn xóa bài viết này không?</h3>
-                        <p><strong>{newsToDelete?.title}</strong> - {newsToDelete?.user.username}</p>
+                        <p><strong>{newsToDelete?.title}</strong></p>
                         <div className={styles.modalButtons}>
                             <button className={styles.deleteBtn} onClick={handleDelete}>Xóa</button>
                             <button className={styles.cancelBtn} onClick={cancelDelete}>Hủy</button>

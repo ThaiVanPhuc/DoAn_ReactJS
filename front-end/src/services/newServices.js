@@ -9,7 +9,7 @@ export const getAllNews = async (page, limit) => {
     console.log(response);
     return response;
   } catch (error) {
-    console.error("Error getAllNew", error);
+    console.error("Error getAllNews", error);
     return [];
   }
 };
@@ -30,7 +30,11 @@ export const createNew = async (newData) => {
     for (let key in newData) {
       formData.append(key, newData[key]);
     }
-    const response = await httpRequest.post("api/news", formData);
+    const response = await httpRequest.post("api/news", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response;
   } catch (error) {
     console.error("Error createNew", error);
@@ -38,9 +42,17 @@ export const createNew = async (newData) => {
   }
 };
 
-export const updateNew = async (id, data) => {
+export const updateNew = async (id, newData) => {
   try {
-    const response = await httpRequest.put(`api/news/${id}`, data);
+    const formData = new FormData();
+    for (let key in newData) {
+      formData.append(key, newData[key]);
+    }
+    const response = await httpRequest.put(`api/news/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response;
   } catch (error) {
     console.error("Error updateNew", error);

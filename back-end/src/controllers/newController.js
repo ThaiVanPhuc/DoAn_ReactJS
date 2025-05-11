@@ -51,6 +51,8 @@ class NewController {
   // [POST]   /api/news
   async addNew(req, res) {
     try {
+      console.log(req.body);
+      console.log(req.file);
       const { title, content } = req.body;
       const imgStory = req.file ? `/uploads/${req.file.filename}` : "";
       const newStory = new New({

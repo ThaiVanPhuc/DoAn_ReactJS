@@ -14,7 +14,7 @@ router.post(
   "/",
   authenticate,
   authorizeAdmin,
-  upload.single("Img"),
+  upload.single("imgStory"),
   newController.addNew
 );
 router.delete("/:id", authenticate, authorizeAdmin, newController.deleteNew);

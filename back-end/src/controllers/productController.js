@@ -27,10 +27,17 @@ class ProductController {
 
   async addProduct(req, res) {
     try {
-      const { Title, Cat, Price, Description , Luotban} = req.body;
+      const { Title, Cat, Price, Description, Luotban } = req.body;
       const Img = req.file ? `/public/products/${req.file.filename}` : "";
 
-      const product = new Product({ Title, Cat, Price, Description, Img, Luotban });
+      const product = new Product({
+        Title,
+        Cat,
+        Price,
+        Description,
+        Img,
+        Luotban,
+      });
       await product.save();
 
       res.status(201).json(product);
@@ -68,30 +75,29 @@ class ProductController {
     }
   }
 
-// tim kiem san pham
+  // tim kiem san pham
 
-    async searchProduct(req, res) {
-  try {
-    const keyword = req.query.search;
+  async searchProduct(req, res) {
+    try {
+      const keyword = req.query.search;
 
-    if (!keyword || keyword.trim() === "") {
-      return res.status(400).json({ message: "Missing search keyword" });
+      if (!keyword || keyword.trim() === "") {
+        return res.status(400).json({ message: "Missing search keyword" });
+      }
+
+      const products = await Product.find({
+        $or: [
+          { Title: { $regex: keyword, $options: "i" } },
+          { Description: { $regex: keyword, $options: "i" } },
+        ],
+      });
+
+      res.json(products);
+    } catch (error) {
+      console.error("Search Product Error:", error);
+      res.status(500).json({ message: "Failed to search product" });
     }
-
-    const products = await Product.find({
-      $or: [
-        { Title: { $regex: keyword, $options: "i" } },
-        { Description: { $regex: keyword, $options: "i" } }
-      ]
-    });
-
-    res.json(products);
-  } catch (error) {
-    console.error("Search Product Error:", error);
-    res.status(500).json({ message: "Failed to search product" });
   }
-}
-
 }
 
 module.exports = new ProductController();
