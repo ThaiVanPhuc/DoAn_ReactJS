@@ -135,7 +135,7 @@ const AdminUserPage = () => {
             <table className={styles.table}>
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>STT</th>
                         <th>Username</th>
                         <th>Email</th>
                         <th>Role</th>

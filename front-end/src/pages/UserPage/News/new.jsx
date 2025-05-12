@@ -1,42 +1,50 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import './new.css';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import styles from './News.module.scss';
+import { getImageUrl } from "../../../utils/image";
 
-const NewsDetail = ({ stories }) => {
-    const { id } = useParams();
-    const story = stories.find((item) => item.id.toString() === id);
 
-    if (!story) return <p>Không tìm thấy bài viết</p>;
+const NewsList = () => {
+    const [news, setNews] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/api/news')
+            .then(res => {
+                setNews(res.data.news);
+            })
+            .catch(err => console.error(err));
+    }, []);
 
     return (
-        <div className="body">
-            <div className="content-page">
-                <div className="title-nav-page">
-                    <p className="title-page">{story.title}</p>
-                    <ol className="nav-page">
-                        <li className="breadcrumb-item"><a href="/">Trang chủ</a></li>
-                        <li className="breadcrumb-item"><a href="/tin-tuc">Tin tức</a></li>
-                        <li className="breadcrumb-item active" aria-current="page">{story.title}</li>
-                    </ol>
-                </div>
-            </div>
-
-            <div className="news" style={{ margin: '50px 15%', fontSize: '18px' }}>
-                <div style={{ textAlign: 'center', textTransform: 'capitalize', fontSize: '25px', fontWeight: '300' }}>
-                    {story.title}
-                </div>
-                <div style={{ margin: '25px 0', justifyContent: 'center', display: 'flex' }}>
-                    <img className="card-img-top" src={`/${story.imgStory}`} alt={story.title} style={{ height: '500px' }} />
-                </div>
-                <div style={{ display: 'flex', fontSize: '15px', marginBottom: '25px' }}>
-                    {story.createdAt} | Đăng bởi: {story.user.firstname} {story.user.lastname}
-                </div>
-                <div className="news-body" style={{ fontFamily: 'Calibri, sans-serif' }}>
-                    <div dangerouslySetInnerHTML={{ __html: story.content }} />
-                </div>
+        <div className={styles.container}>
+            <h2 className={styles.heading}>📰 Tin tức mới nhất</h2>
+            <div className={styles.list}>
+                {Array.isArray(news) && news.map(item => (
+                    <Link to={`/news/${item._id}`} className={styles.card} key={item._id}>
+                        {item.image && (
+                            <div className={styles.imageWrapper}>
+                                <img src={item.image} alt={item.title} className={styles.image} />
+                            </div>
+                        )}
+                        <div className={styles.content}>
+                            <h3 className={styles.title}>{item.title}</h3>
+                            <p className={styles.snippet}>{item.content.substring(0, 100)}...</p>
+                            <td>
+                                {item.imgStory && (
+                                    <img
+                                        src={getImageUrl(item.imgStory)}
+                                        alt="img"
+                                        width={100}
+                                    />
+                                )}
+                            </td>
+                        </div>
+                    </Link>
+                ))}
             </div>
         </div>
     );
 };
 
-export default NewsDetail;
+export default NewsList;
