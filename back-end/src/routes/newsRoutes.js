@@ -18,6 +18,12 @@ router.post(
   newController.addNew
 );
 router.delete("/:id", authenticate, authorizeAdmin, newController.deleteNew);
-router.patch("/:id", authenticate, authorizeAdmin, newController.updateNew);
+router.patch(
+  "/:id",
+  authenticate,
+  authorizeAdmin,
+  upload.single("imgStory"),
+  newController.updateNew
+);
 
 module.exports = router;

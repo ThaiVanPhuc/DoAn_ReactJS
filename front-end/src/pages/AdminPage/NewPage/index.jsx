@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./New.module.scss";
 import * as newsServices from "../../../services/newServices";
+import { getImageUrl } from "../../../utils/image";
 
 const AdminNewsPage = () => {
     const [newsList, setNewsList] = useState([]);
@@ -14,15 +15,14 @@ const AdminNewsPage = () => {
     const [showModal, setShowModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [newsToDelete, setNewsToDelete] = useState(null);
-
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
     const fetchNews = async () => {
         try {
-            const res = await newsServices.getAllNews(page);
+            const res = await newsServices.getAllNews(page, 5);
             setNewsList(res.news);
-            setTotalPages(res.totalPages);
+            setTotalPages(res.totalPages || 1);
         } catch (error) {
             console.error("Error fetching news:", error);
         }
@@ -135,6 +135,7 @@ const AdminNewsPage = () => {
                     <tr>
                         <th>#</th>
                         <th>Tiêu đề</th>
+                        <th>Nội dung</th>
                         <th>Hình ảnh</th>
                         <th>Ngày tạo</th>
                         <th>Actions</th>
@@ -145,7 +146,16 @@ const AdminNewsPage = () => {
                         <tr key={item._id}>
                             <td>{(page - 1) * 5 + index + 1}</td>
                             <td>{item.title}</td>
-                            <td><img src={item.imgStory} alt="" width={100} /></td>
+                            <td>{item.content}</td>
+                            <td>
+                                {item.imgStory && (
+                                    <img
+                                        src={getImageUrl(item.imgStory)}
+                                        alt="img"
+                                        width={100}
+                                    />
+                                )}
+                            </td>
                             <td>{new Date(item.createdAt).toLocaleDateString()}</td>
                             <td>
                                 <button className={styles.editBtn} onClick={() => handleEdit(item)}>Edit</button>
@@ -168,12 +178,35 @@ const AdminNewsPage = () => {
                         <h2>{formData.id ? "Cập nhật bài viết" : "Thêm bài viết"}</h2>
                         {error && <p className={styles.error}>{error}</p>}
                         <form onSubmit={handleSubmit} className={styles.form}>
-                            <input type="text" name="title" placeholder="Tiêu đề" value={formData.title} onChange={handleChange} required />
-                            <textarea name="content" placeholder="Nội dung" value={formData.content} onChange={handleChange} required />
-                            <input type="file" name="imgStory" onChange={handleChange} required={!formData.id} />
+                            <input
+                                type="text"
+                                name="title"
+                                placeholder="Tiêu đề"
+                                value={formData.title}
+                                onChange={handleChange}
+                                required
+                            />
+                            <textarea
+                                name="content"
+                                placeholder="Nội dung"
+                                value={formData.content}
+                                onChange={handleChange}
+                                required
+                            />
+                            <input
+                                type="file"
+                                name="imgStory"
+                                accept="image/*"
+                                onChange={handleChange}
+                                required={!formData.id}
+                            />
                             <div className={styles.modalButtons}>
-                                <button type="submit" className={styles.saveBtn}>{formData.id ? "Cập nhật" : "Thêm"}</button>
-                                <button type="button" className={styles.cancelBtn} onClick={closeModal}>Hủy</button>
+                                <button type="submit" className={styles.saveBtn}>
+                                    {formData.id ? "Cập nhật" : "Thêm"}
+                                </button>
+                                <button type="button" className={styles.cancelBtn} onClick={closeModal}>
+                                    Hủy
+                                </button>
                             </div>
                         </form>
                     </div>

@@ -28,7 +28,7 @@ class ProductController {
   async addProduct(req, res) {
     try {
       const { Title, Cat, Price, Description, Luotban } = req.body;
-      const Img = req.file ? `/public/products/${req.file.filename}` : "";
+      const Img = req.file ? `/uploads/${req.file.filename}` : "";
 
       const product = new Product({
         Title,

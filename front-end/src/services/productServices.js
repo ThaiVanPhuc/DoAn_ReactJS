@@ -3,7 +3,7 @@ import * as httpRequest from "../utils/httpRequest";
 
 export const getAllProducts = async () => {
   try {
-    const response = await httpRequest.get("api/products/all");
+    const response = await httpRequest.get("api/products");
     console.log(response);
     return response;
   } catch (error) {

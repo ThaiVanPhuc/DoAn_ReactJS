@@ -33,14 +33,10 @@ export const get = async (path) => {
 };
 
 // POST
-export const post = async (path, payload) => {
+export const post = async (path, payload, headers) => {
   try {
-    const isFormData = payload instanceof FormData;
-    const response = await httpRequest.post(path, payload, {
-      headers: isFormData
-        ? { "Content-Type": "multipart/form-data" }
-        : { "Content-Type": "application/json" },
-    });
+    // const isFormData = payload instanceof FormData;
+    const response = await httpRequest.post(path, payload, (headers = {}));
     return response.data;
   } catch (error) {
     return new Error(`Error: ${error}`);

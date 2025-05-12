@@ -13,21 +13,21 @@ class NewController {
           totalNews: news.length,
           news: news,
         });
+      } else {
+        const page = parseInt(pageParams) || 1;
+        const skip = (page - 1) * limit;
+        const total = await New.countDocuments();
+        const news = await New.find()
+          .sort({ createdAt: -1 })
+          .skip(skip)
+          .limit(limit);
+        res.json({
+          currentPage: page,
+          totalPages: Math.ceil(total / limit),
+          totalNews: total,
+          news: news,
+        });
       }
-      const page = parseInt(pageParams) || 1;
-      const skip = (page - 1) * limit;
-      const total = await New.countDocuments();
-      const news = await New.find()
-        .populate("user", "username email")
-        .sort({ createdAt: -1 })
-        .skip(skip)
-        .limit(limit);
-      res.json({
-        currentPage: page,
-        totalPages: Math.ceil(total / limit),
-        totalNews: total,
-        news: news,
-      });
     } catch (error) {
       console.error("Server error while getting news", error);
       res.status(500).json({ message: "Server error while getting news" });
@@ -51,8 +51,6 @@ class NewController {
   // [POST]   /api/news
   async addNew(req, res) {
     try {
-      console.log(req.body);
-      console.log(req.file);
       const { title, content } = req.body;
       const imgStory = req.file ? `/uploads/${req.file.filename}` : "";
       const newStory = new New({
@@ -85,16 +83,34 @@ class NewController {
   // [PATCH]  /api/news/:id
   async updateNew(req, res) {
     try {
-      const updateNew = await New.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-      });
-      if (!updateNew) {
-        return res.status(500).json({ message: "new not found" });
+      const { title, content } = req.body;
+      const updateData = {
+        title,
+        content,
+      };
+
+      if (req.file) {
+        updateData.imgStory = `/uploads/${req.file.filename}`;
       }
-      res.status(200).json({ message: "updated new successfully", updateNew });
+
+      const updatedNew = await New.findByIdAndUpdate(
+        req.params.id,
+        updateData,
+        {
+          new: true,
+        }
+      );
+
+      if (!updatedNew) {
+        return res.status(404).json({ message: "New not found" });
+      }
+
+      res
+        .status(200)
+        .json({ message: "Updated news successfully", updatedNew });
     } catch (error) {
       console.error("Server error while updating new", error);
-      res.status(500).json("server error while updating new");
+      res.status(500).json({ message: "Server error while updating new" });
     }
   }
 }
