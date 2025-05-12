@@ -1,40 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import './cart.css';
 
-const Cart = ({ cart, setCart }) => {
-    // increase qty
-    const incqty = (product) => {
-        const exist = cart.find((x) => x.id === product.id);
-        setCart(
-            cart.map((curElm) =>
-                curElm.id === product.id ? { ...exist, qty: exist.qty + 1 } : curElm
-            )
-        );
-    };
-
-    // decrease qty
-    const decqty = (product) => {
-        const exist = cart.find((x) => x.id === product.id);
-        setCart(
-            cart.map((curElm) =>
-                curElm.id === product.id ? { ...exist, qty: exist.qty - 1 } : curElm
-            )
-        );
-    };
-
-    // Remove cart product
-    const removeProduct = (product) => {
-        const exist = cart.find((x) => x.id === product.id);
-        if (exist.qty > 0) {
-            setCart(cart.filter((x) => x.id !== product.id));
-        }
-    };
-
-    const Totalprice = cart.reduce((price, item) => price + item.qty * item.Price, 0);
-
-    // check-out
+const Cart = ({ setCart }) => {
+    const [cart, setCartState] = useState([]);
+    const [error, setError] = useState('');
     const [showPaymentModal, setShowPaymentModal] = useState(false);
     const [userInfo, setUserInfo] = useState({
         name: '',
@@ -42,7 +14,43 @@ const Cart = ({ cart, setCart }) => {
         phone: '',
         email: '',
     });
-    const [error, setError] = useState('');
+
+    useEffect(() => {
+        // Gọi API để lấy cart của người dùng
+        axios.get('http://localhost:5000/api/cart')
+            .then((response) => {
+                setCartState(response.data.cart);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, []);
+
+    const incqty = (productId) => {
+        axios.post(`http://localhost:5000/api/cart`, { productId, qty: 1 })
+            .then(response => {
+                setCartState(response.data.cart);
+            })
+            .catch(err => console.error(err));
+    };
+
+    const decqty = (productId) => {
+        axios.post(`http://localhost:5000/api/cart`, { productId, qty: -1 })
+            .then(response => {
+                setCartState(response.data.cart);
+            })
+            .catch(err => console.error(err));
+    };
+
+    const removeProduct = (productId) => {
+        axios.delete(`http://localhost:5000/api/cart/${productId}`)
+            .then(response => {
+                setCartState(response.data.cart);
+            })
+            .catch(err => console.error(err));
+    };
+
+    const Totalprice = cart.reduce((price, item) => price + item.qty * item.Price, 0);
 
     const handlePayment = () => {
         setShowPaymentModal(true);
@@ -83,7 +91,7 @@ const Cart = ({ cart, setCart }) => {
         }
         setError('');
         setShowPaymentModal(false);
-        setCart([]);
+        setCartState([]);  // Clear cart after successful payment
     };
 
     return (
@@ -116,18 +124,18 @@ const Cart = ({ cart, setCart }) => {
                                 <h3>{curElm.Title}</h3>
                                 <p>Price: {curElm.Price}</p>
                                 <div className='qty'>
-                                    <button className='incqty' onClick={() => incqty(curElm)}>
+                                    <button className='incqty' onClick={() => incqty(curElm.id)}>
                                         +
                                     </button>
                                     <input type='text' value={curElm.qty}></input>
-                                    <button className='decqty' onClick={() => decqty(curElm)}>
+                                    <button className='decqty' onClick={() => decqty(curElm.id)}>
                                         -
                                     </button>
                                 </div>
                                 <h4 className='subtotal'>Tạm Tính: ${curElm.Price * curElm.qty}</h4>
                             </div>
                             <div className='close'>
-                                <button onClick={() => removeProduct(curElm)}>
+                                <button onClick={() => removeProduct(curElm.id)}>
                                     <AiOutlineClose />
                                 </button>
                             </div>
