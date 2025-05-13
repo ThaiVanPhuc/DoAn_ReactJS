@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AiOutlineShoppingCart, AiOutlineHeart, AiOutlineCloseCircle, AiFillStar,} from "react-icons/ai";
+import { AiOutlineShoppingCart, AiOutlineHeart, AiOutlineCloseCircle, AiFillStar, } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
@@ -8,7 +8,7 @@ import axios from "axios";
 
 const Product = ({ detail, addtocart }) => {
   const [product, setProduct] = useState([]);
-  const [originalProduct, setOriginalProduct] = useState([]); 
+  const [originalProduct, setOriginalProduct] = useState([]);
   const [comments, setComments] = useState([]);
   const [close, setClose] = useState(false);
 
@@ -33,14 +33,14 @@ const Product = ({ detail, addtocart }) => {
   const view = (product) => {
     navigate(`/product/${product._id}`);
   };
-  
+
 
 
   // Lấy dữ liệu sản phẩm từ API
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/products/all");
+        const response = await axios.get("http://localhost:5000/api/products");
         console.log("Dữ liệu trả về từ API:", response.data);
         setProduct(response.data);
         setOriginalProduct(response.data); // Lưu bản gốc để lọc
@@ -48,10 +48,10 @@ const Product = ({ detail, addtocart }) => {
         console.error("Lỗi khi tải sản phẩm:", error);
       }
     };
-  
+
     fetchData();
   }, []);
-  
+
   return (
     <>
       {close ? (
@@ -69,7 +69,7 @@ const Product = ({ detail, addtocart }) => {
                   <div className="detail">
                     <h4>{curElm.Cat}</h4>
                     <h2>{curElm.Title}</h2>
-                   
+
                     <h3>{curElm.Price.toLocaleString("vi-VN",)} VND</h3>
                     <button onClick={() => addtocart(curElm)}>
                       Add To Cart
@@ -146,7 +146,7 @@ const Product = ({ detail, addtocart }) => {
             <div className="categories">
               <h3>categories</h3>
               <ul>
-                <li onClick={() => allProducts ()}>All Products</li>
+                <li onClick={() => allProducts()}>All Products</li>
                 <li onClick={() => filterProduct("Tablet")}>Tablet</li>
                 <li onClick={() => filterProduct("Smart Watch")}>
                   Smart Watch
@@ -165,7 +165,7 @@ const Product = ({ detail, addtocart }) => {
                 return (
                   <div className="box" key={curElm.id}>
                     <div className="img_box">
-                      <img  src={`http://localhost:5000${curElm.Img}`} alt={curElm.Title}></img>
+                      <img src={`http://localhost:5000${curElm.Img}`} alt={curElm.Title}></img>
                       <div className="icon">
                         <li onClick={() => addtocart(curElm)}>
                           <AiOutlineShoppingCart />
