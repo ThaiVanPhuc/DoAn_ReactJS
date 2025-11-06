@@ -31,7 +31,7 @@ const SignIn = () => {
       const data = response.data;
       console.log(data);
 
-      if (response.ok) {
+      if (response.status === 200 || response.status === 201) {
         const { token, user } = data;
 
         // ✅ Lưu thông tin người dùng và token
