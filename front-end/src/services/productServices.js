@@ -3,7 +3,7 @@ import * as httpRequest from "../utils/httpRequest";
 
 export const getAllProducts = async () => {
   try {
-    const response = await httpRequest.get("api/products");
+    const response = await httpRequest.get("products");
     console.log(response);
     return response;
   } catch (error) {
@@ -14,7 +14,7 @@ export const getAllProducts = async () => {
 
 export const getProductById = async (id) => {
   try {
-    const response = await httpRequest.get(`api/products/${id}`);
+    const response = await httpRequest.get(`products/${id}`);
     return response;
   } catch (error) {
     console.error("Error getProductById", error);
@@ -28,7 +28,7 @@ export const createProduct = async (productData) => {
     for (let key in productData) {
       formData.append(key, productData[key]);
     }
-    const response = await httpRequest.post("api/products", formData);
+    const response = await httpRequest.post("products", formData);
     return response;
   } catch (error) {
     console.error("Error createProduct", error);
@@ -38,7 +38,7 @@ export const createProduct = async (productData) => {
 
 export const updateProduct = async (id, productData) => {
   try {
-    const response = await httpRequest.put(`api/products/${id}`, productData);
+    const response = await httpRequest.put(`products/${id}`, productData);
     return response;
   } catch (error) {
     console.error("Error updateProduct", error);
@@ -48,7 +48,7 @@ export const updateProduct = async (id, productData) => {
 
 export const deleteProduct = async (id) => {
   try {
-    const response = await httpRequest.del(`api/products/${id}`);
+    const response = await httpRequest.del(`products/${id}`);
     return response;
   } catch (error) {
     console.error("Error deleteProduct", error);
