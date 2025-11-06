@@ -40,7 +40,7 @@ const Product = ({ detail, addtocart }) => {
 useEffect(() => {
   const fetchData = async () => {
     try {
-      const response = await httpRequest.get("api/products");
+      const response = await httpRequest.get("products");
       console.log("Dữ liệu trả về từ API:", response.data);
       setProduct(response.data);
       setOriginalProduct(response.data); // Lưu bản gốc để lọc
@@ -166,7 +166,7 @@ useEffect(() => {
                   <div className="box" key={curElm.id}>
                     <div className="img_box">
                       {/* <img src={`http://localhost:5000${curElm.Img}`} alt={curElm.Title}></img> */}
-                      <img src={`/api/${curElm.Img}`} alt={curElm.Title}></img>
+                      <img src={`${curElm.Img}`} alt={curElm.Title}></img>
                       <div className="icon">
                         <li onClick={() => addtocart(curElm)}>
                           <AiOutlineShoppingCart />

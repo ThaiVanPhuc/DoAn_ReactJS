@@ -26,7 +26,7 @@ const SignIn = () => {
     }
 
     try {
-      const response = await httpRequest.post("api/login", formData);
+      const response = await httpRequest.post("login", formData);
       // Nếu muốn lấy dữ liệu trả về:
       const data = response.data;
       console.log(data);

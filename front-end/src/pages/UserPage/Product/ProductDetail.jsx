@@ -10,7 +10,7 @@ const ProductDetail = ({ addtocart }) => {
   useEffect(() => {
   const fetchProductDetail = async () => {
     try {
-      const res = await httpRequest.get(`api/products/${id}`);
+      const res = await httpRequest.get(`products/${id}`);
       setProduct(res.data);
     } catch (err) {
       console.error("Lỗi khi tải chi tiết sản phẩm:", err);
@@ -43,7 +43,7 @@ const ProductDetail = ({ addtocart }) => {
     {/* Hình ảnh sản phẩm */}
     <div className="col-md-5 text-center">
       <img
-        src={`/api/${product.Img}`}
+        src={`${product.Img}`}
         alt={product.Title}
         className="img-fluid rounded-3 shadow-sm"
         style={{ maxHeight: '350px', objectFit: 'contain', backgroundColor: "#fff", padding: "10px" , width: '70%' }}

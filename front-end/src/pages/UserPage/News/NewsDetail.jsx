@@ -11,7 +11,7 @@ const NewsDetail = () => {
     useEffect(() => {
   const fetchNewsDetail = async () => {
     try {
-      const res = await httpRequest.get(`api/news/${id}`);
+      const res = await httpRequest.get(`news/${id}`);
       setNews(res.data);
     } catch (err) {
       console.error("Lỗi khi tải chi tiết tin tức:", err);

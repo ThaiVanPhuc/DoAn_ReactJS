@@ -18,7 +18,7 @@ const Cart = ({ setCart }) => {
  useEffect(() => {
   const fetchCart = async () => {
     try {
-      const response = await httpRequest.get("api/cart");
+      const response = await httpRequest.get("cart");
       setCartState(response.data.cart);
     } catch (error) {
       console.error("Lỗi khi lấy giỏ hàng:", error);
@@ -30,7 +30,7 @@ const Cart = ({ setCart }) => {
 
 const incqty = async (productId) => {
   try {
-    const response = await httpRequest.post("api/cart", { productId, qty: 1 });
+    const response = await httpRequest.post("cart", { productId, qty: 1 });
     setCartState(response.data.cart);
   } catch (err) {
     console.error("Lỗi khi tăng số lượng:", err);
@@ -39,7 +39,7 @@ const incqty = async (productId) => {
 
 const decqty = async (productId) => {
   try {
-    const response = await httpRequest.post("api/cart", { productId, qty: -1 });
+    const response = await httpRequest.post("cart", { productId, qty: -1 });
     setCartState(response.data.cart);
   } catch (err) {
     console.error("Lỗi khi giảm số lượng:", err);
@@ -48,7 +48,7 @@ const decqty = async (productId) => {
 
 const removeProduct = async (productId) => {
   try {
-    const response = await httpRequest.delete(`api/cart/${productId}`);
+    const response = await httpRequest.delete(`cart/${productId}`);
     setCartState(response.data.cart);
   } catch (err) {
     console.error("Lỗi khi xóa sản phẩm:", err);

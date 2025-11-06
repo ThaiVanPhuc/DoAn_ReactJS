@@ -49,7 +49,7 @@ const SignUp = () => {
     }
 
     try {
-      const response = await httpRequest.post("api/signup", formData);
+      const response = await httpRequest.post("signup", formData);
       const data = response.data;
       console.log(data);
 

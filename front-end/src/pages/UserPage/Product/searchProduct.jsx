@@ -14,7 +14,7 @@ const SearchPage = ({ addtocart }) => {
 useEffect(() => {
   const fetchProducts = async () => {
     try {
-      const res = await httpRequest.get(`api/products/search?search=${query}`);
+      const res = await httpRequest.get(`products/search?search=${query}`);
       setProducts(res.data);
     } catch (error) {
       console.error("Lỗi khi tìm kiếm sản phẩm:", error);
@@ -43,7 +43,7 @@ useEffect(() => {
               <div className="product-card shadow-sm rounded">
                 <div className="img-container">
                   <img
-                    src={`/api/${product.Img}`}
+                    src={`${product.Img}`}
                     alt={product.Title}
                     style={{
                       width: '100%',
