@@ -166,7 +166,7 @@ useEffect(() => {
                   <div className="box" key={curElm.id}>
                     <div className="img_box">
                       {/* <img src={`http://localhost:5000${curElm.Img}`} alt={curElm.Title}></img> */}
-                      <img src={`${curElm.Img}`} alt={curElm.Title}></img>
+                      <img src={getImageUrl(curElm.Img)} alt={curElm.Title} />
                       <div className="icon">
                         <li onClick={() => addtocart(curElm)}>
                           <AiOutlineShoppingCart />

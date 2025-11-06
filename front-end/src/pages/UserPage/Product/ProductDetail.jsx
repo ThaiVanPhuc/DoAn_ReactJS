@@ -43,7 +43,7 @@ const ProductDetail = ({ addtocart }) => {
     {/* Hình ảnh sản phẩm */}
     <div className="col-md-5 text-center">
       <img
-        src={`${product.Img}`}
+        src={getImageUrl(product.Img)}
         alt={product.Title}
         className="img-fluid rounded-3 shadow-sm"
         style={{ maxHeight: '350px', objectFit: 'contain', backgroundColor: "#fff", padding: "10px" , width: '70%' }}

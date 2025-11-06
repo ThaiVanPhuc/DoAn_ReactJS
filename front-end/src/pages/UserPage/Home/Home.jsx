@@ -5,6 +5,7 @@ import { BsArrowRight } from "react-icons/bs";
 import banner from "../../../assets/box-Banner/background2.avif";
 import './Home.css';
 import Chatbox from "../../../components/Chatbox/chatbox";
+import { getImageUrl } from "../../../utils/image";
 
 const Home = ({addtocart}) => {
   const [products, setProducts] = useState([]);
@@ -86,7 +87,7 @@ const Home = ({addtocart}) => {
                 className="card-img-top"  style={{ height: "250px",  width: "100%", objectFit: "cover",  backgroundColor: "#f8f8f8", }}  />
               </div> */}
               <img
-                  src={`${product.Image}`}  alt={product.Name} 
+                  src={getImageUrl(`/uploads/${product.Image}`)}  alt={product.Name} 
                 className="card-img-top"  style={{ height: "250px",  width: "100%", objectFit: "cover",  backgroundColor: "#f8f8f8", }}  />
               </div>
               <div className="card-body d-flex flex-column text-center">

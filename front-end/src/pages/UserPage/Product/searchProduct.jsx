@@ -43,7 +43,7 @@ useEffect(() => {
               <div className="product-card shadow-sm rounded">
                 <div className="img-container">
                   <img
-                    src={`${product.Img}`}
+                    src={getImageUrl(product.Img)}
                     alt={product.Title}
                     style={{
                       width: '100%',
