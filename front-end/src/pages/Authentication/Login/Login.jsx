@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
+import httpRequest from '../../../utils/httpRequest';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -25,13 +26,10 @@ const SignIn = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
+      const response = await httpRequest.post("api/login", formData);
+      // Nếu muốn lấy dữ liệu trả về:
+      const data = response.data;
+      console.log(data);
 
       if (response.ok) {
         const { token, user } = data;

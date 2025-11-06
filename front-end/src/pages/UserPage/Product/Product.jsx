@@ -4,7 +4,7 @@ import { BsEye } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 import "./product.css";
-import axios from "axios";
+import httpRequest from '../../../utils/httpRequest';
 
 const Product = ({ detail, addtocart }) => {
   const [product, setProduct] = useState([]);
@@ -37,20 +37,20 @@ const Product = ({ detail, addtocart }) => {
 
 
   // Lấy dữ liệu sản phẩm từ API
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/products");
-        console.log("Dữ liệu trả về từ API:", response.data);
-        setProduct(response.data);
-        setOriginalProduct(response.data); // Lưu bản gốc để lọc
-      } catch (error) {
-        console.error("Lỗi khi tải sản phẩm:", error);
-      }
-    };
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await httpRequest.get("api/products");
+      console.log("Dữ liệu trả về từ API:", response.data);
+      setProduct(response.data);
+      setOriginalProduct(response.data); // Lưu bản gốc để lọc
+    } catch (error) {
+      console.error("Lỗi khi tải sản phẩm:", error);
+    }
+  };
 
-    fetchData();
-  }, []);
+  fetchData();
+}, []);
 
   return (
     <>
@@ -165,7 +165,8 @@ const Product = ({ detail, addtocart }) => {
                 return (
                   <div className="box" key={curElm.id}>
                     <div className="img_box">
-                      <img src={`http://localhost:5000${curElm.Img}`} alt={curElm.Title}></img>
+                      {/* <img src={`http://localhost:5000${curElm.Img}`} alt={curElm.Title}></img> */}
+                      <img src={`/api/${curElm.Img}`} alt={curElm.Title}></img>
                       <div className="icon">
                         <li onClick={() => addtocart(curElm)}>
                           <AiOutlineShoppingCart />

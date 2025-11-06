@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';  
-import axios from 'axios';
+import httpRequest from '../../../utils/httpRequest';
 import { FaShoppingCart, FaStar, FaRegStar } from 'react-icons/fa';
 
 const ProductDetail = ({ addtocart }) => {
@@ -8,14 +8,17 @@ const ProductDetail = ({ addtocart }) => {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/products/${id}`)
-      .then(res => {
-        setProduct(res.data); 
-      })
-      .catch(err => {
-        console.error('Lỗi khi tải chi tiết sản phẩm:', err);
-      });
-  }, [id]); 
+  const fetchProductDetail = async () => {
+    try {
+      const res = await httpRequest.get(`api/products/${id}`);
+      setProduct(res.data);
+    } catch (err) {
+      console.error("Lỗi khi tải chi tiết sản phẩm:", err);
+    }
+  };
+
+  fetchProductDetail();
+}, [id]);
 
   if (!product) return <p className="text-center mt-5">Đang tải sản phẩm...</p>;
 
@@ -40,7 +43,7 @@ const ProductDetail = ({ addtocart }) => {
     {/* Hình ảnh sản phẩm */}
     <div className="col-md-5 text-center">
       <img
-        src={`http://localhost:5000${product.Img}`}
+        src={`/api/${product.Img}`}
         alt={product.Title}
         className="img-fluid rounded-3 shadow-sm"
         style={{ maxHeight: '350px', objectFit: 'contain', backgroundColor: "#fff", padding: "10px" , width: '70%' }}

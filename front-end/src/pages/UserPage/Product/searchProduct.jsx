@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import httpRequest from '../../../utils/httpRequest';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import "./search.css";
 const SearchPage = ({ addtocart }) => {
@@ -11,22 +11,22 @@ const SearchPage = ({ addtocart }) => {
   // Lấy từ khóa tìm kiếm từ URL
   const query = new URLSearchParams(location.search).get('keyword');
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await axios.get(`http://localhost:5000/api/products/search?search=${query}`);
-        setProducts(res.data);
-      } catch (error) {
-        console.error('Error fetching search results:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (query) {
-      fetchProducts();
+useEffect(() => {
+  const fetchProducts = async () => {
+    try {
+      const res = await httpRequest.get(`api/products/search?search=${query}`);
+      setProducts(res.data);
+    } catch (error) {
+      console.error("Lỗi khi tìm kiếm sản phẩm:", error);
+    } finally {
+      setLoading(false);
     }
-  }, [query]);
+  };
+
+  if (query) {
+    fetchProducts();
+  }
+}, [query]);
 
   return (
     <Container className="mt-4 text-center " >
@@ -43,7 +43,7 @@ const SearchPage = ({ addtocart }) => {
               <div className="product-card shadow-sm rounded">
                 <div className="img-container">
                   <img
-                    src={`http://localhost:5000${product.Img}`}
+                    src={`/api/${product.Img}`}
                     alt={product.Title}
                     style={{
                       width: '100%',

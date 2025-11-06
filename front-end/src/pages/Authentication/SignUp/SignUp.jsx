@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './SignUp.css';
+import httpRequest from '../../../utils/httpRequest';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -48,15 +49,9 @@ const SignUp = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
+      const response = await httpRequest.post("api/signup", formData);
+      const data = response.data;
+      console.log(data);
 
       if (response.ok) {
         alert(`Chào mừng ${formData.username} đã đến với ReactPG. Chúc bạn mua hàng vui vẻ!`);

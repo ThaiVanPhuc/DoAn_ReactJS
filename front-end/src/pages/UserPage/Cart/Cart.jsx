@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import httpRequest from '../../../utils/httpRequest';
 import './cart.css';
 
 const Cart = ({ setCart }) => {
@@ -15,40 +15,45 @@ const Cart = ({ setCart }) => {
         email: '',
     });
 
-    useEffect(() => {
-        // Gọi API để lấy cart của người dùng
-        axios.get('http://localhost:5000/api/cart')
-            .then((response) => {
-                setCartState(response.data.cart);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }, []);
+ useEffect(() => {
+  const fetchCart = async () => {
+    try {
+      const response = await httpRequest.get("api/cart");
+      setCartState(response.data.cart);
+    } catch (error) {
+      console.error("Lỗi khi lấy giỏ hàng:", error);
+    }
+  };
 
-    const incqty = (productId) => {
-        axios.post(`http://localhost:5000/api/cart`, { productId, qty: 1 })
-            .then(response => {
-                setCartState(response.data.cart);
-            })
-            .catch(err => console.error(err));
-    };
+  fetchCart();
+}, []);
 
-    const decqty = (productId) => {
-        axios.post(`http://localhost:5000/api/cart`, { productId, qty: -1 })
-            .then(response => {
-                setCartState(response.data.cart);
-            })
-            .catch(err => console.error(err));
-    };
+const incqty = async (productId) => {
+  try {
+    const response = await httpRequest.post("api/cart", { productId, qty: 1 });
+    setCartState(response.data.cart);
+  } catch (err) {
+    console.error("Lỗi khi tăng số lượng:", err);
+  }
+};
 
-    const removeProduct = (productId) => {
-        axios.delete(`http://localhost:5000/api/cart/${productId}`)
-            .then(response => {
-                setCartState(response.data.cart);
-            })
-            .catch(err => console.error(err));
-    };
+const decqty = async (productId) => {
+  try {
+    const response = await httpRequest.post("api/cart", { productId, qty: -1 });
+    setCartState(response.data.cart);
+  } catch (err) {
+    console.error("Lỗi khi giảm số lượng:", err);
+  }
+};
+
+const removeProduct = async (productId) => {
+  try {
+    const response = await httpRequest.delete(`api/cart/${productId}`);
+    setCartState(response.data.cart);
+  } catch (err) {
+    console.error("Lỗi khi xóa sản phẩm:", err);
+  }
+};
 
     const Totalprice = cart.reduce((price, item) => price + item.qty * item.Price, 0);
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import httpRequest from '../../../utils/httpRequest';
 import { Link } from 'react-router-dom';
 import styles from './News.module.scss';
 import { getImageUrl } from "../../../utils/image";
@@ -9,13 +9,17 @@ const NewsList = () => {
     const [news, setNews] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/news')
-            .then(res => {
-                setNews(res.data.news);
-            })
-            .catch(err => console.error(err));
-    }, []);
+  const fetchNews = async () => {
+    try {
+      const res = await httpRequest.get("api/news");
+      setNews(res.data.news);
+    } catch (err) {
+      console.error("Lỗi khi tải tin tức:", err);
+    }
+  };
 
+  fetchNews();
+}, []);
     return (
         <div className={styles.container}>
             <h2 className={styles.heading}>📰 Tin tức mới nhất</h2>

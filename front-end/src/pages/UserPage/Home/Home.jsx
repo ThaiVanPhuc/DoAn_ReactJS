@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import httpRequest from "../../../utils/httpRequest";
 import { Link } from "react-router-dom";
 import { BsArrowRight } from "react-icons/bs";
 import banner from "../../../assets/box-Banner/background2.avif";
@@ -13,21 +13,21 @@ const Home = ({addtocart}) => {
 
   // Lấy dữ liệu sản phẩm từ MongoDB qua API
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/home/all');
-        console.log('Dữ liệu trả về từ API:', response.data);
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Lỗi khi tải sản phẩm:', error);
-        setError('Không thể tải sản phẩm');
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-    fetchData();
-  }, []);
+  const fetchData = async () => {
+    try {
+      const response = await httpRequest.get("api/home/all");
+      console.log("Dữ liệu trả về từ API:", response.data);
+      setProducts(response.data);
+    } catch (error) {
+      console.error("Lỗi khi tải sản phẩm:", error);
+      setError("Không thể tải sản phẩm");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+}, []);
  
   // Carousel Bootstrap
   useEffect(() => {
@@ -80,8 +80,13 @@ const Home = ({addtocart}) => {
           <div key={product._id} className="col-12 col-sm-6 col-md-3 mb-4">
             <div className="card h-100 shadow-sm border" style={{  minHeight: "400px",  borderRadius: "6px",  overflow: "hidden", }}>
               <div className="position-relative">
-              <img
+            {/* Thay bằng cái này */}
+              {/* <img
                   src={`http://localhost:5000${product.Image}`}  alt={product.Name} 
+                className="card-img-top"  style={{ height: "250px",  width: "100%", objectFit: "cover",  backgroundColor: "#f8f8f8", }}  />
+              </div> */}
+              <img
+                  src={`/api/${product.Image}`}  alt={product.Name} 
                 className="card-img-top"  style={{ height: "250px",  width: "100%", objectFit: "cover",  backgroundColor: "#f8f8f8", }}  />
               </div>
               <div className="card-body d-flex flex-column text-center">
