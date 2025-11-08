@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';  
 import httpRequest from '../../../utils/httpRequest';
 import { FaShoppingCart, FaStar, FaRegStar } from 'react-icons/fa';
+import { getImageUrl } from "../../../utils/image";
 
 const ProductDetail = ({ addtocart }) => {
   const { id } = useParams(); 

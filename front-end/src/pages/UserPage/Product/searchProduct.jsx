@@ -3,6 +3,9 @@ import { useLocation } from 'react-router-dom';
 import httpRequest from '../../../utils/httpRequest';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import "./search.css";
+import { getImageUrl } from "../../../utils/image";
+
+
 const SearchPage = ({ addtocart }) => {
   const location = useLocation();
   const [products, setProducts] = useState([]);

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import "./product.css";
 import httpRequest from '../../../utils/httpRequest';
+import { getImageUrl } from "../../../utils/image";
 
 const Product = ({ detail, addtocart }) => {
   const [product, setProduct] = useState([]);
