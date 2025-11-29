@@ -6,7 +6,7 @@ const backendPort = 5000;
 export const urlBackend =
   backendHost === "localhost"
     ? `http://localhost:${backendPort}`
-    : `http://${backendHost}`;
+    : `https://${backendHost}`;
 
 export const getImageUrl = (imgPath) => {
   if (!imgPath) return "";
