@@ -27,7 +27,7 @@ class ProductController {
 
   async addProduct(req, res) {
     try {
-      const { Title, Cat, Price, Description, Luotban } = req.body;
+      const { Title, Cat, Price, Description } = req.body;
       const Img = req.file ? `/uploads/${req.file.filename}` : "";
 
       const product = new Product({
@@ -36,7 +36,6 @@ class ProductController {
         Price,
         Description,
         Img,
-        Luotban,
       });
       await product.save();
 
@@ -49,13 +48,25 @@ class ProductController {
 
   async updateProduct(req, res) {
     try {
+      const updateData = { ...req.body };
+
+      if (req.file) {
+        updateData.Img = `/uploads/${req.file.filename}`;
+      } else {
+        if (updateData.Img && typeof updateData.Img === "object")
+          delete updateData.Img;
+      }
+
+      delete updateData._id;
+
       const updatedProduct = await Product.findByIdAndUpdate(
         req.params.id,
-        req.body,
+        updateData,
         { new: true }
       );
       if (!updatedProduct)
         return res.status(404).json({ message: "Product not found" });
+
       res.json(updatedProduct);
     } catch (error) {
       console.error("Update Product Error:", error);

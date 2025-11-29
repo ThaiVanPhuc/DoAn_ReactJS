@@ -24,6 +24,7 @@ router.put(
   "/:id",
   authenticate,
   authorizeAdmin,
+  upload.single("Img"),
   ProductController.updateProduct
 );
 
