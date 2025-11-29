@@ -1,10 +1,10 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Nav from "./components/Header/Header";
 import Rout from "./routes/rout";
 import { BrowserRouter, useLocation } from "react-router-dom";
 import Footer from "./components/Footer/footer";
 import axios from "axios";
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+import "bootstrap/dist/js/bootstrap.bundle.min";
 import ProductDetail from "./pages/UserPage/Product/ProductDetail";
 
 const AppContent = () => {
@@ -19,27 +19,26 @@ const AppContent = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("/api/products");  
-        setProduct(response.data);  
+        const response = await axios.get("/api/products");
+        setProduct(response.data);
       } catch (error) {
-        console.error("Lỗi khi lấy sản phẩm: ", error);  
+        console.error("Lỗi khi lấy sản phẩm: ", error);
       }
     };
 
     fetchProducts();
-  }, []); 
+  }, []);
 
   // Hàm tìm kiếm sản phẩm theo danh mục
   const searchbtn = (category) => {
     const filtered = product.filter((x) => x.Cat === category);
     setProduct(filtered);
   };
-   // Hiển thị chi tiết sản phẩm
-   const view = (product) => {
+  // Hiển thị chi tiết sản phẩm
+  const view = (product) => {
     setDetails([{ ...product }]);
     setClose(true);
   };
-
 
   //add to cart
   const addtocart = (product) => {
@@ -73,9 +72,8 @@ const AppContent = () => {
         setCart={setCart}
         addtocart={addtocart}
         ProductDetail={ProductDetail}
-        
       />
-       
+
       {!hideHeaderFooter && <Footer />}
     </>
   );

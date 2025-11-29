@@ -1,57 +1,64 @@
 import React, { useState, useEffect } from "react";
-import { AiOutlineShoppingCart, AiOutlineHeart, AiOutlineCloseCircle, AiFillStar, } from "react-icons/ai";
+import {
+  AiOutlineShoppingCart,
+  AiOutlineHeart,
+  AiOutlineCloseCircle,
+  AiFillStar,
+} from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-
 import "./product.css";
-import httpRequest from '../../../utils/httpRequest';
+import httpRequest from "../../../utils/httpRequest";
 import { getImageUrl } from "../../../utils/image";
 
-const Product = ({ detail, addtocart }) => {
+const Product = ({ detail }) => {
   const [product, setProduct] = useState([]);
   const [originalProduct, setOriginalProduct] = useState([]);
   const [comments, setComments] = useState([]);
   const [close, setClose] = useState(false);
+  const navigate = useNavigate();
 
-  // Lọc sản phẩm theo category
   const filterProduct = (category) => {
     const filtered = originalProduct.filter((x) => x.Cat === category);
     setProduct(filtered);
   };
 
-  // Hiển thị lại tất cả sản phẩm
   const allProducts = () => {
     setProduct(originalProduct);
   };
 
-  // Thêm bình luận
   const addComment = (newComment) => {
     setComments([...comments, newComment]);
   };
-  // Xu ly duong dan den trang chi tiet san pham
-  const navigate = useNavigate();
 
   const view = (product) => {
     navigate(`/product/${product._id}`);
   };
 
-
-
-  // Lấy dữ liệu sản phẩm từ API
-useEffect(() => {
-  const fetchData = async () => {
+  const handleAddToCart = async (item) => {
     try {
-      const response = await httpRequest.get("products");
-      console.log("Dữ liệu trả về từ API:", response.data);
-      setProduct(response.data);
-      setOriginalProduct(response.data); // Lưu bản gốc để lọc
-    } catch (error) {
-      console.error("Lỗi khi tải sản phẩm:", error);
+      await httpRequest.post("cart", {
+        productId: item._id,
+        qty: 1,
+      });
+      alert("Đã thêm vào giỏ hàng");
+    } catch (err) {
+      alert("Không thể thêm vào giỏ hàng");
     }
   };
 
-  fetchData();
-}, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await httpRequest.get("products");
+        setProduct(response.data);
+        setOriginalProduct(response.data);
+      } catch (error) {
+        console.error("Lỗi khi tải sản phẩm:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -61,25 +68,25 @@ useEffect(() => {
             <button onClick={() => setClose(false)} className="closebtn">
               <AiOutlineCloseCircle />
             </button>
-            {detail.map((curElm) => {
-              return (
-                <div className="productbox mb-3" key={curElm.id}>
-                  <div className="img_box">
-                    <img src={curElm.Img} alt={curElm.Title}></img>
-                  </div>
-                  <div className="detail">
-                    <h4>{curElm.Cat}</h4>
-                    <h2>{curElm.Title}</h2>
 
-                    <h3>{curElm.Price.toLocaleString("vi-VN",)} VND</h3>
-                    <button onClick={() => addtocart(curElm)}>
-                      Add To Cart
-                    </button>
-                  </div>
+            {detail.map((curElm) => (
+              <div className="productbox mb-3" key={curElm._id}>
+                <div className="img_box">
+                  <img src={curElm.Img} alt={curElm.Title}></img>
                 </div>
-              );
-            })}
+                <div className="detail">
+                  <h4>{curElm.Cat}</h4>
+                  <h2>{curElm.Title}</h2>
+                  <h3>{curElm.Price.toLocaleString("vi-VN")} VND</h3>
+                  <button onClick={() => handleAddToCart(curElm)}>
+                    Add To Cart
+                  </button>
+                </div>
+              </div>
+            ))}
+
             <div className="productbox"></div>
+
             <div className="comments-section">
               <h3>Comments</h3>
               <div className="comments-list">
@@ -87,11 +94,9 @@ useEffect(() => {
                   <div className="comment" key={index}>
                     <div className="star-and-details">
                       <div className="star-icon">
-                        {[...Array(parseInt(comment.stars))].map(
-                          (star, index) => (
-                            <AiFillStar className="gold-star" key={index} />
-                          )
-                        )}
+                        {[...Array(parseInt(comment.stars))].map((_, i) => (
+                          <AiFillStar className="gold-star" key={i} />
+                        ))}
                       </div>
                       <div className="comment-details">
                         <p>
@@ -103,7 +108,7 @@ useEffect(() => {
                   </div>
                 ))}
               </div>
-              {/* Form binh luanluan */}
+
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -113,9 +118,7 @@ useEffect(() => {
                     stars: e.target.elements.stars.value,
                   };
                   addComment(newComment);
-                  e.target.elements.name.value = "";
-                  e.target.elements.comment.value = "";
-                  e.target.elements.stars.value = "";
+                  e.target.reset();
                 }}
               >
                 <input type="text" name="name" placeholder="Your name..." />
@@ -137,8 +140,6 @@ useEffect(() => {
           </div>
         </div>
       ) : null}
-      {/* EndEnd */}
-      {/* Phân loại  */}
 
       <div className="products">
         <h2>Products</h2>
@@ -147,48 +148,45 @@ useEffect(() => {
             <div className="categories">
               <h3>categories</h3>
               <ul>
-                <li onClick={() => allProducts()}>All Products</li>
+                <li onClick={allProducts}>All Products</li>
                 <li onClick={() => filterProduct("Tablet")}>Tablet</li>
                 <li onClick={() => filterProduct("Smart Watch")}>
                   Smart Watch
                 </li>
                 <li onClick={() => filterProduct("Laptop")}>Laptop</li>
-
                 <li onClick={() => filterProduct("Headphone")}>Headphone</li>
                 <li onClick={() => filterProduct("Camera")}>Camera</li>
                 <li onClick={() => filterProduct("Gaming")}>Gaming</li>
               </ul>
             </div>
           </div>
+
           <div className="productbox">
             <div className="contant">
-              {product.map((curElm) => {
-                return (
-                  <div className="box" key={curElm.id}>
-                    <div className="img_box">
-                      {/* <img src={`http://localhost:5000${curElm.Img}`} alt={curElm.Title}></img> */}
-                      <img src={getImageUrl(curElm.Img)} alt={curElm.Title} />
-                      <div className="icon">
-                        <li onClick={() => addtocart(curElm)}>
-                          <AiOutlineShoppingCart />
-                        </li>
-
-                        <li onClick={() => view(curElm)}>
-                          <BsEye />
-                        </li>
-                        <li>
-                          <AiOutlineHeart />
-                        </li>
-                      </div>
-                    </div>
-                    <div className="detail">
-                      <p>{curElm.Cat}</p>
-                      <h3>{curElm.Title}</h3>
-                      <h4>{curElm.Price.toLocaleString("vi-VN",)} VND</h4>
+              {product.map((curElm) => (
+                <div className="box" key={curElm._id}>
+                  <div className="img_box">
+                    <img src={getImageUrl(curElm.Img)} alt={curElm.Title} />
+                    <div className="icon">
+                      <li onClick={() => handleAddToCart(curElm)}>
+                        <AiOutlineShoppingCart />
+                      </li>
+                      <li onClick={() => view(curElm)}>
+                        <BsEye />
+                      </li>
+                      <li>
+                        <AiOutlineHeart />
+                      </li>
                     </div>
                   </div>
-                );
-              })}
+
+                  <div className="detail">
+                    <p>{curElm.Cat}</p>
+                    <h3>{curElm.Title}</h3>
+                    <h4>{curElm.Price.toLocaleString("vi-VN")} VND</h4>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
